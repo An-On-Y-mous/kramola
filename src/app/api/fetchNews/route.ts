@@ -6,7 +6,7 @@ const pool = new Pool({
 
 export const GET = async () => {
   try {
-    const { rows } = await pool.query("SELECT * FROM blogs");
+    const { rows } = await pool.query("SELECT * FROM news");
 
     return new Response(JSON.stringify(rows), {
       headers: {
