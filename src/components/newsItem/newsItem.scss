@@ -1,0 +1,27 @@
+@import "../../styles/styles.scss";
+
+.news-item {
+  //   @include flex-center(column);
+
+  border: 2px solid #222222;
+  padding: 2vh 3vw;
+  border-radius: 1vw;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.news-item h3 {
+  margin-bottom: 1vh;
+}
+
+.news-item p {
+  margin-top: 1vh;
+}
+.render-more-link {
+  font-size: $--16px;
+  margin-top: 1vh;
+  text-decoration: underline;
+  transition: color 0.2s ease-in-out;
+  &:hover {
+    color: $pri-col;
+  }
+}
