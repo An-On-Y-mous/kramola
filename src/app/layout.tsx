@@ -6,6 +6,8 @@ import {
   Nunito,
   Josefin_Sans,
   Bebas_Neue,
+  Squada_One,
+  Work_Sans,
 } from "next/font/google";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
@@ -32,7 +34,16 @@ const bebas = Bebas_Neue({
   weight: ["400"],
   variable: "--font-bebas",
 });
-
+const squada = Squada_One({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-squada",
+});
+const work_sans = Squada_One({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-work_sans",
+});
 export const metadata: Metadata = {
   title: "kramola",
   description: "A Multilingual News Website",
@@ -46,7 +57,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} ${poppins.variable} ${nunito.variable} ${josefin.variable} ${bebas.variable}`}
+        className={`${inter.className} ${poppins.variable} ${nunito.variable} ${josefin.variable} ${bebas.variable} ${squada.variable} ${work_sans.variable}`}
       >
         <Header />
         {children}
