@@ -1,5 +1,5 @@
 import React from "react";
-import "./newsItem.scss"; // Import styles for individual news items
+import "./newsItem.scss";
 
 const NewsItem = ({ title, description, publishedAt }) => {
   return (
