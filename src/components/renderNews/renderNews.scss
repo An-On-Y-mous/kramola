@@ -3,7 +3,6 @@
 .render-news-container {
   margin: 2vh 20vw;
   padding: 2vh 3vw;
-  border-radius: 1vw;
 }
 
 .render-news {
@@ -11,32 +10,5 @@
     display: flex;
     flex-direction: column;
     gap: 4vh;
-    padding: 0;
-    list-style-type: none;
   }
-}
-
-.render-title {
-  font-family: $nunito;
-  font-size: $--26px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.render-description {
-  font-family: $poppins;
-  font-size: $--16px;
-  font-weight: 300;
-  text-align: justify;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  color: black;
-}
-
-.render-date {
-  font-size: $--14px;
-  font-weight: 300;
 }

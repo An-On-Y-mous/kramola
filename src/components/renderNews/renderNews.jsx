@@ -32,7 +32,9 @@ const RenderNews = () => {
                 <NewsItem
                   title={value.title}
                   description={value.description}
-                  publishedAt={value.publishedat}
+                  date={value.date}
+                  img_url={value.img_url}
+                  source_url={value.source_url}
                 />
               </li>
             ))}
