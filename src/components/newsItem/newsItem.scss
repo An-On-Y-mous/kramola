@@ -3,17 +3,16 @@
 .news-item {
   @include flex-center(column);
   gap: 1.2vh;
-  border: 2px solid #222222;
+  border: 2px solid white;
   padding: 2vh 3vw;
   border-radius: 1vw;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
 }
 
 .news-title {
   text-align: justify;
-  font-family: $nunito;
-  font-size: $--26px;
-  font-weight: bold;
+  font-family: $squada;
+  font-size: $--32px;
 }
 
 .news-description {
