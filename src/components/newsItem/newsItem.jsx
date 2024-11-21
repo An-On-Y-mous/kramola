@@ -1,5 +1,5 @@
 import React from "react";
-import "./newsItem.scss";
+// import "./newsItem.scss";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -7,7 +7,7 @@ const NewsItem = ({ id, title, description, date, img_url, source_url }) => {
   return (
     <div className="news-item">
       <div className="news-image">
-        <Image src={img_url} width={300} height={300} alt="image" />
+        <Image src={img_url} width={1200} height={800} alt="image" />
       </div>
 
       <div className="news-title">

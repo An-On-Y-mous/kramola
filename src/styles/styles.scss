@@ -28,17 +28,36 @@ $work_sans: var(--font-work_sans);
 .parent {
   display: flex;
   flex-direction: column;
+  margin: 1vh auto;
 }
 .parent-container {
   display: flex;
+  gap: 1vw;
 }
 .left {
   flex: 70%;
+  .news-item {
+    @include flex-center(column);
+  }
+  .news-title {
+    font-family: $squada;
+    font-size: $--38px;
+    text-align: justify;
+  }
+  .news-description {
+    display: none;
+  }
 }
 .right {
   flex: 30%;
+  .news-item {
+    @include flex-center();
+    gap: 1vw;
+  }
 }
 .grid-view {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  .news-item {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
 }

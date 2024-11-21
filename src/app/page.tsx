@@ -1,4 +1,5 @@
 import RenderNews from "@/components/renderNews/renderNews";
+import "@/styles/styles.scss";
 export default function Home() {
   return (
     <div className="parent">
