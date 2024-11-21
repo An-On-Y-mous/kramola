@@ -11,7 +11,9 @@ const NewsItem = ({ title, description, date, img_url, source_url }) => {
       </div>
 
       <div className="news-title">
-        <h3>{title}</h3>
+        <Link href={"/article"}>
+          <h3>{title}</h3>
+        </Link>
       </div>
       <div
         className="news-description"

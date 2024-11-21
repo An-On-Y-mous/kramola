@@ -24,3 +24,21 @@ $work_sans: var(--font-work_sans);
   align-items: center;
   flex-direction: $direction;
 }
+
+.parent {
+  display: flex;
+  flex-direction: column;
+}
+.parent-container {
+  display: flex;
+}
+.left {
+  flex: 70%;
+}
+.right {
+  flex: 30%;
+}
+.grid-view {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
