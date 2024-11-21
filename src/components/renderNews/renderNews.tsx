@@ -1,18 +1,39 @@
 "use client";
 import { useEffect, useState } from "react";
 import "./renderNews.scss";
-import NewsItem from "../newsItem/newsItem"; // Import the new NewsItem component
+import NewsItem from "../newsItem/newsItem";
 
-const RenderNews = () => {
-  const [news, setNews] = useState([]);
+interface NewsItemType {
+  id?: number;
+  title: string;
+  description: string;
+  date: string;
+  img_url: string;
+  source_url: string;
+}
+
+const RenderNews = ({
+  limit,
+  startIndex = 0,
+}: {
+  limit?: number;
+  startIndex?: number;
+}) => {
+  const [news, setNews] = useState<NewsItemType[]>([]);
 
   const fetchData = async () => {
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/fetchNews`
       );
-      const data = await response.json();
-      setNews(data);
+
+      const data: NewsItemType[] = await response.json();
+
+      const limitedNews = limit
+        ? data.slice(startIndex, startIndex + limit)
+        : data.slice(startIndex);
+
+      setNews(limitedNews);
     } catch (err) {
       console.error(err);
     }
@@ -30,6 +51,7 @@ const RenderNews = () => {
             {news.map((value, index) => (
               <li key={index}>
                 <NewsItem
+                  id={value.id}
                   title={value.title}
                   description={value.description}
                   date={value.date}

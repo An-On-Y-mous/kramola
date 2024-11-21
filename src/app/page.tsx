@@ -4,14 +4,14 @@ export default function Home() {
     <div className="parent">
       <div className="parent-container">
         <div className="left">
-          <RenderNews />
+          <RenderNews limit={1} />
         </div>
         <div className="right">
-          <RenderNews />
+          <RenderNews limit={4} startIndex={1} />
         </div>
       </div>
       <div className="grid-view">
-        <RenderNews />
+        <RenderNews startIndex={5} />
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import "./newsItem.scss";
 import Image from "next/image";
 import Link from "next/link";
 
-const NewsItem = ({ title, description, date, img_url, source_url }) => {
+const NewsItem = ({ id, title, description, date, img_url, source_url }) => {
   return (
     <div className="news-item">
       <div className="news-image">
@@ -11,7 +11,7 @@ const NewsItem = ({ title, description, date, img_url, source_url }) => {
       </div>
 
       <div className="news-title">
-        <Link href={"/article"}>
+        <Link href={`/article/${id}`}>
           <h3>{title}</h3>
         </Link>
       </div>
