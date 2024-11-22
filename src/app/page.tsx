@@ -12,6 +12,7 @@ export default function Home() {
         </div>
       </div>
       <div className="grid-view">
+        <h1>Latest News</h1>
         <RenderNews startIndex={5} />
       </div>
     </div>
