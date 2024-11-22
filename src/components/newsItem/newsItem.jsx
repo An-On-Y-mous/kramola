@@ -25,7 +25,15 @@ const NewsItem = ({ id, title, description, date, img_url, source_url }) => {
         </Link>
       </div>
       <div className="news-date">
-        <p>{date.slice(0, 10)}</p>
+        <p>
+          {date
+            ? new Date(date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })
+            : "Loading..."}
+        </p>
       </div>
     </div>
   );

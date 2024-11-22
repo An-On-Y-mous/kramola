@@ -1,52 +1,52 @@
-@import "../../styles/styles.scss";
+// @import "../../styles/styles.scss";
 
-.news-item {
-  @include flex-center(column);
-  gap: 1.2vh;
-  // border: 2px solid white;
-  padding: 2vh 3vw;
-  border-radius: 1vw;
-  // box-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
-}
+// .news-item {
+//   @include flex-center(column);
+//   gap: 1.2vh;
+//   // border: 2px solid white;
+//   padding: 2vh 3vw;
+//   border-radius: 1vw;
+//   // box-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+// }
 
-.news-title {
-  text-align: justify;
-  font-family: $squada;
-  font-size: $--32px;
-}
+// .news-title {
+//   text-align: justify;
+//   font-family: $squada;
+//   font-size: $--32px;
+// }
 
-.news-description {
-  font-family: $poppins;
-  font-size: $--16px;
-  font-weight: 400;
-  text-align: justify;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  color: gray;
-}
+// .news-description {
+//   font-family: $poppins;
+//   font-size: $--16px;
+//   font-weight: 400;
+//   text-align: justify;
+//   display: -webkit-box;
+//   -webkit-box-orient: vertical;
+//   -webkit-line-clamp: 3;
+//   text-overflow: ellipsis;
+//   overflow: hidden;
+//   color: gray;
+// }
 
-.news-read-more-link {
-  font-size: $--16px;
-  text-decoration: underline;
-  transition: color 0.2s ease-in-out;
-  align-self: start;
-  &:hover {
-    color: $pri-col;
-  }
-}
+// .news-read-more-link {
+//   font-size: $--16px;
+//   text-decoration: underline;
+//   transition: color 0.2s ease-in-out;
+//   align-self: start;
+//   &:hover {
+//     color: $pri-col;
+//   }
+// }
 
-.news-date {
-  align-self: start;
-  font-size: $--14px;
-  font-weight: 300;
-}
+// .news-date {
+//   align-self: start;
+//   font-size: $--14px;
+//   font-weight: 300;
+// }
 
-.news-image {
-  width: 100%;
-  height: 20vh;
-  object-fit: cover;
-  border-radius: 1vw;
-}
+// .news-image {
+//   width: 100%;
+//   height: 20vh;
+//   object-fit: cover;
+//   border-radius: 1vw;
+// }
