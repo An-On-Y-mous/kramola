@@ -36,7 +36,6 @@ $work_sans: var(--font-work_sans);
 
 //LEFT SIDE
 .left {
-  // border: 2px solid yellow;
   padding: 0vh 1.5vw;
   height: fit-content;
   flex: 70%;
@@ -115,8 +114,6 @@ $work_sans: var(--font-work_sans);
     display: none;
   }
   .news-image {
-    // width: 60%;
-    // border-radius: 1vw;
     width: 100%;
     height: 100%;
     border-radius: 1vw;
@@ -133,14 +130,6 @@ $work_sans: var(--font-work_sans);
   .border-line {
     border-bottom: 2px solid snow;
   }
-}
-
-//LATEST NEWS
-h1 {
-  font-family: $bebas;
-  font-size: $--48px;
-  text-align: center;
-  margin: 3vh auto;
 }
 
 //GRID VIEW

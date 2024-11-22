@@ -11,7 +11,9 @@ export default function Home() {
           <RenderNews limit={4} startIndex={1} />
         </div>
       </div>
-      <h1>Latest News</h1>
+      <h1 className="font-bebas text-[48px] text-center my-[3vh] mx-auto">
+        Latest News
+      </h1>
       <div className="grid-view">
         <RenderNews startIndex={5} />
       </div>
