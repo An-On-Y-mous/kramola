@@ -5,17 +5,19 @@ const Header = ({}) => {
     <div className="nav-parent">
       <div className="nav-container">
         <div className="nav-title">
-          <h1>kramola</h1>
+          <Link href={"/"}>kramola</Link>
         </div>
-        <ul>
-          <Link href={"/"}>Home</Link>
-          <li>Newsletter</li>
-          <Link href={"/aboutus"}>About Us</Link>
-        </ul>
+        <div className="nav-pages">
+          <ul>
+            <Link href={"/"}>Home</Link>
+            <Link href={"/"}>Latest News</Link>
+            <Link href={"/headlines"}>Headlines</Link>
+            <Link href={"/aboutus"}>About Us</Link>
+          </ul>
+        </div>
       </div>
     </div>
   );
 };
-// Home, aboutus, 
 
 export default Header;

@@ -4,30 +4,51 @@
   font-family: $poppins;
   padding: 2vh 4vw;
 }
+
 .nav-container {
   @include flex-center();
-  justify-content: space-between;
-  h1 {
-    font-size: 2rem;
+  justify-content: flex-start;
+  gap: 2vw;
+}
+
+.nav-title {
+  a {
+    font-size: $--34px;
     font-weight: bold;
     text-transform: uppercase;
-    &:hover {
-      color: $pri-col;
-      transition: color 0.3s ease-in-out;
-    }
+    transition: transform 0.3s ease-in-out;
   }
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.nav-pages {
   ul {
     @include flex-center();
     list-style: none;
     gap: 2vw;
     font-weight: 500;
-    font-size: $--18px;
-  }
-  &:hover {
-    a,
-    li {
-      color: $pri-col;
-      transition: color 0.3s ease-in-out;
+    font-size: 1.3rem;
+
+    a {
+      position: relative;
+      text-decoration: none;
+
+      &::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -4px;
+        left: 0;
+        background-color: currentColor;
+        transition: width 0.3s ease-in-out;
+      }
+
+      &:hover::after {
+        width: 100%;
+      }
     }
   }
 }
