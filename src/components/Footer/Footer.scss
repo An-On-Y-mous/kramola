@@ -1,0 +1,35 @@
+@import "../../styles/styles.scss";
+
+.footer-parent {
+  margin-top: 4vh;
+  background-color: rgba($color: white, $alpha: 0.2);
+  padding: 1vh 2vw;
+  font-family: $poppins;
+  width: 100%;
+  position: relative;
+  bottom: 0;
+}
+
+.footer-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-left {
+  font-size: 1rem;
+  line-height: 3.5vh;
+  h3 {
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+  }
+}
+
+.footer-right {
+  ul {
+    display: flex;
+    gap: 2vw;
+    align-items: center;
+  }
+}
