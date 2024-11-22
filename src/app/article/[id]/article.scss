@@ -1,0 +1,57 @@
+@import "../../../styles/styles.scss";
+
+.article-parent {
+  display: flex;
+  flex-direction: column;
+}
+
+.article-container {
+  @include flex-center(column);
+  gap: 2vh;
+  padding: 1vh 2vw;
+  margin: 3vh 20vw;
+}
+
+.article-title {
+  font-family: $bebas;
+  font-size: $--42px;
+  text-align: justify;
+}
+
+.article-description {
+  font-size: $--24px;
+  text-align: justify;
+}
+
+.article-image {
+  width: 100%;
+  max-width: 60%;
+  margin: auto;
+  img {
+    object-fit: cover;
+    border-radius: 2vw;
+  }
+}
+
+.date-read {
+  @include flex-center();
+  justify-content: space-between;
+  width: 100%;
+  font-size: $--18px;
+}
+.article-date {
+  font-weight: 300;
+}
+
+.article-read-more {
+  text-decoration: underline;
+  font-weight: 400;
+}
+
+.article-more-news {
+  font-size: $--42px;
+  text-align: center;
+  font-family: $nunito;
+  font-weight: bold;
+  margin: 2vh auto;
+}

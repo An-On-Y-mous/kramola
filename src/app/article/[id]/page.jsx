@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import "./article.scss";
+import RenderNews from "../../../components/renderNews/renderNews";
 
 export default function ArticlePage() {
   const params = useParams();
@@ -23,54 +24,61 @@ export default function ArticlePage() {
   }, [params.id]);
 
   return (
-    <div className="article-page">
+    <div className="article-parent">
       <div className="article-container">
-        <div className="article-header">
-          <h1 className="article-title">{newsItem.title || "Loading..."}</h1>
-          <p className="article-date">
-            {newsItem.date
-              ? new Date(newsItem.date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })
-              : "Loading..."}
-          </p>
-        </div>
-
         <div className="article-image">
           {newsItem.img_url ? (
             <Image
               src={newsItem.img_url}
               alt={newsItem.title || "Article Image"}
-              width={200}
-              height={300}
+              width={1200}
+              height={800}
             />
           ) : (
             <div>Image not available</div>
           )}
         </div>
+        <div className="article-title">
+          <h1>{newsItem.title || "Loading..."}</h1>
+        </div>
 
         <div
-          className="article-content"
+          className="article-description"
           dangerouslySetInnerHTML={{
             __html: newsItem.description || "Loading article content...",
           }}
         />
-
-        <div className="article-actions">
-          {newsItem.source_url && (
-            <Link
-              href={newsItem.source_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="read-full-article-btn"
-            >
-              Read Full Article
-            </Link>
-          )}
+        <div className="date-read">
+          <div className="article-read-more">
+            {newsItem.source_url && (
+              <Link
+                href={newsItem.source_url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Read Full Article
+              </Link>
+            )}
+          </div>
+          <div className="article-date">
+            <p>
+              {newsItem.date
+                ? new Date(newsItem.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })
+                : "Loading..."}
+            </p>
+          </div>
         </div>
       </div>
+      {/* <div className="article-more-news">
+        <h1>More News</h1>
+      </div>
+      <div className="grid-view">
+        <RenderNews startIndex={7} />
+      </div> */}
     </div>
   );
 }
