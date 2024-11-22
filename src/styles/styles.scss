@@ -146,6 +146,7 @@ $work_sans: var(--font-work_sans);
     background-color: rgba(255, 255, 255, 0.05);
     border-radius: 1vw 1vw 0.5vw 0.5vw;
     &:hover {
+      transition: transform 0.3s ease-in-out;
       transform: scale(1.03);
     }
   }
