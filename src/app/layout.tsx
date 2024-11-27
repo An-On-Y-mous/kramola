@@ -7,7 +7,7 @@ import {
   Josefin_Sans,
   Bebas_Neue,
   Squada_One,
-  Work_Sans,
+  Lato,
 } from "next/font/google";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
@@ -39,10 +39,10 @@ const squada = Squada_One({
   weight: ["400"],
   variable: "--font-squada",
 });
-const work_sans = Squada_One({
+const lato = Lato({
   subsets: ["latin"],
   weight: ["400"],
-  variable: "--font-work_sans",
+  variable: "--font-lato",
 });
 export const metadata: Metadata = {
   title: "kramola",
@@ -57,7 +57,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} ${poppins.variable} ${nunito.variable} ${josefin.variable} ${bebas.variable} ${squada.variable} ${work_sans.variable}`}
+        className={`${inter.className} ${poppins.variable} ${nunito.variable} ${josefin.variable} ${bebas.variable} ${squada.variable} ${lato.variable}`}
       >
         <Header />
         {children}
