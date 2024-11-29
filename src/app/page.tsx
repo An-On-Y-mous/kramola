@@ -34,3 +34,5 @@ export default function Home() {
     </div>
   );
 }
+
+//COMMIT BEFORE MULTI-LANGUAGES ADDED.
