@@ -1,5 +1,8 @@
 import Link from "next/link";
 import "./Header.scss";
+
+import DropdownExampleSearchDropdown from "@/components/ui/dropdown-menu";
+
 const Header = ({}) => {
   return (
     <div className="nav-parent">
@@ -15,6 +18,7 @@ const Header = ({}) => {
             <Link href={"/aboutus"}>About Us</Link>
           </ul>
         </div>
+        <DropdownExampleSearchDropdown />
       </div>
     </div>
   );
