@@ -1,6 +1,6 @@
 import Link from "next/link";
 import "./Header.scss";
-
+import GoogleTranslate from "@/components/ui/GoogleTranslate";
 import DropdownExampleSearchDropdown from "@/components/ui/dropdown-menu";
 
 const Header = ({}) => {
@@ -18,6 +18,7 @@ const Header = ({}) => {
             <Link href={"/aboutus"}>About Us</Link>
           </ul>
         </div>
+        {/* <GoogleTranslate /> */}
         <DropdownExampleSearchDropdown />
       </div>
     </div>
