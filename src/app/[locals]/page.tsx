@@ -3,6 +3,7 @@
 import React, { use, useState, useEffect } from "react";
 import RenderNews from "@/components/renderNews/renderNews";
 import Loader from "@/app/Loader";
+import "@/styles/styles.scss";
 
 interface NewsItemType {
   id?: number;
@@ -28,7 +29,7 @@ export default function LocalePage({
 }: {
   params: Promise<{ locals: string }>;
 }) {
-  const { locals } = use(params); // Use React.use to unwrap the promise
+  const { locals } = use(params);
 
   const [news, setNews] = useState<NewsItemType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -52,11 +53,11 @@ export default function LocalePage({
             <RenderNews newsLocale={news} limit={1} />
           </div>
           <div className="right">
-            <RenderNews newsLocale={news} limit={5} startIndex={1} />
+            <RenderNews newsLocale={news} limit={6} startIndex={1} />
           </div>
         </div>
         <h1 className="font-bebas text-[48px] text-center my-[3vh] mx-auto">
-          Latest News in {locals}
+          Latest News
         </h1>
         <div className="grid-view">
           <RenderNews newsLocale={news} startIndex={6} />
