@@ -1,5 +1,7 @@
+// src / app / component / renderNews / renderNews.tsx;
+
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./renderNews.scss";
 import NewsItem from "../newsItem/newsItem";
 
@@ -13,42 +15,25 @@ interface NewsItemType {
 }
 
 const RenderNews = ({
+  newsLocale, // Changed prop name to newsLocale
   limit,
   startIndex = 0,
 }: {
+  newsLocale: NewsItemType[]; // Updated type to match the new prop name
   limit?: number;
   startIndex?: number;
 }) => {
-  const [news, setNews] = useState<NewsItemType[]>([]);
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/fetchNews`
-      );
-
-      const data: NewsItemType[] = await response.json();
-
-      const limitedNews = limit
-        ? data.slice(startIndex, startIndex + limit)
-        : data.slice(startIndex);
-
-      setNews(limitedNews);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // Slice the news data based on limit and startIndex
+  const limitedNews = limit
+    ? newsLocale.slice(startIndex, startIndex + limit)
+    : newsLocale.slice(startIndex);
 
   return (
     <div className="render-news-container">
-      {news.length > 0 ? (
+      {limitedNews.length > 0 ? (
         <div className="render-news">
           <ul>
-            {news.map((value, index) => (
+            {limitedNews.map((value, index) => (
               <li key={index}>
                 <NewsItem
                   id={value.id}

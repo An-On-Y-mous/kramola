@@ -1,17 +1,23 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const languageOptions = [
-  { key: "English", text: "English", value: "English" },
-  { key: "Russian", text: "Russian", value: "Russian" },
-  { key: "Spanish", text: "Spanish", value: "Spanish" },
+  { key: "English", text: "English", value: "en" },
+  { key: "Russian", text: "Russian", value: "ru" },
+  { key: "Spanish", text: "Spanish", value: "es" },
 ];
 
-const DropdownExampleSearchDropdown = () => {
+const Dropdown = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("");
+  const router = useRouter();
 
   const handleChange = (event) => {
-    setSelectedLanguage(event.target.value);
+    const selectedLang = event.target.value;
+    setSelectedLanguage(selectedLang);
+    if (selectedLang) {
+      router.push(`/${selectedLang}`);
+    }
   };
 
   return (
@@ -28,4 +34,4 @@ const DropdownExampleSearchDropdown = () => {
   );
 };
 
-export default DropdownExampleSearchDropdown;
+export default Dropdown;

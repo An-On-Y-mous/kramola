@@ -1,7 +1,8 @@
+"use client";
 import Link from "next/link";
 import "./Header.scss";
 import GoogleTranslate from "@/components/ui/GoogleTranslate";
-import DropdownExampleSearchDropdown from "@/components/ui/dropdown-menu";
+import Dropdown from "@/components/ui/dropdown-menu";
 
 const Header = ({}) => {
   return (
@@ -19,7 +20,7 @@ const Header = ({}) => {
           </ul>
         </div>
         {/* <GoogleTranslate /> */}
-        <DropdownExampleSearchDropdown />
+        <Dropdown />
       </div>
     </div>
   );
