@@ -1,4 +1,9 @@
-/* HTML: <div class="loader"></div> */
+.parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .loader {
   width: 50px;
   aspect-ratio: 1;
