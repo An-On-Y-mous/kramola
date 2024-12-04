@@ -21,16 +21,18 @@ const Dropdown = () => {
   };
 
   return (
-    <select value={selectedLanguage} onChange={handleChange}>
-      <option value="" disabled>
-        Select Language
-      </option>
-      {languageOptions.map((option) => (
-        <option key={option.key} value={option.value}>
-          {option.text}
+    <div className="font-poppins text-[19px] text-center font-medium">
+      <select value={selectedLanguage} onChange={handleChange}>
+        <option value="" disabled>
+          Select Language
         </option>
-      ))}
-    </select>
+        {languageOptions.map((option) => (
+          <option key={option.key} value={option.value}>
+            {option.text}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 };
 

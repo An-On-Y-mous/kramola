@@ -20,8 +20,8 @@ const Header = ({}) => {
           </ul>
         </div>
         {/* <GoogleTranslate /> */}
-        <Dropdown />
       </div>
+      <Dropdown />
     </div>
   );
 };
