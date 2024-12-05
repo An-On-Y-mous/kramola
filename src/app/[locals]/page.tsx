@@ -53,7 +53,7 @@ export default function LocalePage({
             <RenderNews newsLocale={news} limit={1} />
           </div>
           <div className="right">
-            <RenderNews newsLocale={news} limit={6} startIndex={1} />
+            <RenderNews newsLocale={news} limit={5} startIndex={1} />
           </div>
         </div>
         <h1 className="font-bebas text-[48px] text-center my-[3vh] mx-auto">
