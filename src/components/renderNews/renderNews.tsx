@@ -1,7 +1,4 @@
 // src / app / component / renderNews / renderNews.tsx;
-
-"use client";
-import { useState } from "react";
 import "./renderNews.scss";
 import NewsItem from "../newsItem/newsItem";
 
