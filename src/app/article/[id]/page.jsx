@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import "./article.scss";
-import RenderNews from "../../../components/renderNews/renderNews";
 
 export default function ArticlePage() {
   const params = useParams();
@@ -30,7 +29,7 @@ export default function ArticlePage() {
           {newsItem.img_url ? (
             <Image
               src={newsItem.img_url}
-              alt={newsItem.title || "Article Image"}
+              alt={newsItem.title}
               width={1200}
               height={800}
             />
@@ -39,13 +38,13 @@ export default function ArticlePage() {
           )}
         </div>
         <div className="article-title">
-          <h1>{newsItem.title || "Loading..."}</h1>
+          <h1>{newsItem.title}</h1>
         </div>
 
         <div
           className="article-description"
           dangerouslySetInnerHTML={{
-            __html: newsItem.description || "Loading article content...",
+            __html: newsItem.description,
           }}
         />
         <div className="date-read">
@@ -62,13 +61,11 @@ export default function ArticlePage() {
           </div>
           <div className="article-date">
             <p>
-              {newsItem.date
-                ? new Date(newsItem.date).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })
-                : "Loading..."}
+              {new Date(newsItem.date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
             </p>
           </div>
         </div>

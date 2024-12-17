@@ -1,6 +1,6 @@
 const Headlines = () => {
   return (
-    <div>
+    <div className="parent-headlines">
       <h1>Headlines</h1>
     </div>
   );
