@@ -9,10 +9,32 @@ import {
   Squada_One,
   Lato,
 } from "next/font/google";
+import localFont from "next/font/local";
+
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
+
+const helveticaBold = localFont({
+  src: "../fonts/HelveticaNeueBold.otf",
+  variable: "--font-helveticaBold",
+});
+
+const helveticaMedium = localFont({
+  src: "../fonts/HelveticaNeueMedium.otf",
+  variable: "--font-helveticaMedium",
+});
+
+const proximaBlack = localFont({
+  src: "../fonts/proximanova_black.otf",
+  variable: "--font-proximaBlack",
+});
+
+const proxima = localFont({
+  src: "../fonts/proximanova_regular.ttf",
+  variable: "--font-proxima",
+});
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -57,7 +79,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} ${poppins.variable} ${nunito.variable} ${josefin.variable} ${bebas.variable} ${squada.variable} ${lato.variable}`}
+        className={`${inter.className} ${poppins.variable} ${nunito.variable} ${josefin.variable} ${bebas.variable} ${squada.variable} ${lato.variable} ${helveticaBold.variable} ${helveticaMedium.variable} ${proximaBlack.variable} ${proxima.variable}`}
       >
         <Header />
         {children}

@@ -17,6 +17,10 @@ $josefin: var(--font-josefin);
 $bebas: var(--font-bebas);
 $squada: var(--font-squada);
 $lato: var(--font-lato);
+$helveticaBold: var(--font-helveticaBold);
+$helveticaMedium: var(--font-helveticaMedium);
+$proximaBlack: var(--font-proximaBlack);
+$proxima: var(--font-proxima);
 
 @mixin flex-center($direction: row) {
   display: flex;
@@ -47,7 +51,7 @@ $lato: var(--font-lato);
     gap: 1vh;
   }
   .news-title {
-    font-family: $lato;
+    font-family: $proxima;
     font-weight: bold;
     font-size: $--42px;
     text-align: left;
