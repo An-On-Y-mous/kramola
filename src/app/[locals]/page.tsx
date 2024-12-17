@@ -1,6 +1,3 @@
-"use client";
-
-import React, { use, useState, useEffect } from "react";
 import RenderNews from "@/components/renderNews/renderNews";
 import Loader from "@/app/Loader";
 import "@/styles/styles.scss";
@@ -24,26 +21,13 @@ async function fetchNews(locale: string): Promise<NewsItemType[]> {
   return response.json();
 }
 
-export default function LocalePage({
+export default async function LocalePage({
   params,
 }: {
-  params: Promise<{ locals: string }>;
+  params: { locals: string };
 }) {
-  const { locals } = use(params);
-
-  const [news, setNews] = useState<NewsItemType[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    fetchNews(locals).then((newsData) => {
-      setNews(newsData);
-      setLoading(false);
-    });
-  }, [locals]);
-
-  if (loading) {
-    return <Loader />;
-  }
+  const { locals } = params;
+  const news = await fetchNews(locals);
 
   return (
     <div>

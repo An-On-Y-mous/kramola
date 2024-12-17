@@ -2,8 +2,6 @@ import RenderNews from "@/components/renderNews/renderNews";
 import "@/styles/styles.scss";
 
 export default async function Home() {
-  // State to hold news data
-
   const fetchNews = async () => {
     try {
       const response = await fetch(
@@ -24,11 +22,9 @@ export default async function Home() {
         <div className="parent-container">
           <div className="left">
             <RenderNews newsLocale={news} limit={1} />{" "}
-            {/* Pass news as newsLocale */}
           </div>
           <div className="right">
             <RenderNews newsLocale={news} limit={5} startIndex={1} />{" "}
-            {/* Pass news as newsLocale */}
           </div>
         </div>
         <h1 className="font-bebas text-[48px] text-center my-[3vh] mx-auto">
@@ -36,7 +32,6 @@ export default async function Home() {
         </h1>
         <div className="grid-view">
           <RenderNews newsLocale={news} startIndex={6} />{" "}
-          {/* Pass news as newsLocale */}
         </div>
       </div>
     </div>

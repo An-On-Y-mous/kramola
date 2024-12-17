@@ -1,5 +1,4 @@
-"use client";
-import React, { useState } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 
 const languageOptions = [
@@ -9,12 +8,10 @@ const languageOptions = [
 ];
 
 const Dropdown = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState("");
   const router = useRouter();
 
   const handleChange = (event) => {
     const selectedLang = event.target.value;
-    setSelectedLanguage(selectedLang);
     if (selectedLang) {
       router.push(`/${selectedLang}`);
     }
@@ -22,7 +19,7 @@ const Dropdown = () => {
 
   return (
     <div className="font-poppins text-[19px] text-center font-medium">
-      <select value={selectedLanguage} onChange={handleChange}>
+      <select defaultValue="" onChange={handleChange}>
         <option value="" disabled>
           Select Language
         </option>
