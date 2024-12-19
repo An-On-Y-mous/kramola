@@ -9,6 +9,7 @@ interface NewsItemType {
   date: string;
   img_url: string;
   source_url: string;
+  slugTitle: string;
 }
 
 async function fetchNews(locale: string): Promise<NewsItemType[]> {
@@ -26,7 +27,7 @@ export default async function LocalePage({
 }: {
   params: { locals: string };
 }) {
-  const { locals } = params;
+  const { locals } = await params;
   const news = await fetchNews(locals);
 
   return (
@@ -34,17 +35,22 @@ export default async function LocalePage({
       <div className="parent">
         <div className="parent-container">
           <div className="left">
-            <RenderNews newsLocale={news} limit={1} />
+            <RenderNews newsLocale={news} limit={1} locale={locals} />
           </div>
           <div className="right">
-            <RenderNews newsLocale={news} limit={5} startIndex={1} />
+            <RenderNews
+              newsLocale={news}
+              limit={5}
+              startIndex={1}
+              locale={locals}
+            />
           </div>
         </div>
         <h1 className="font-bebas text-[48px] text-center my-[3vh] mx-auto">
           Latest News
         </h1>
         <div className="grid-view">
-          <RenderNews newsLocale={news} startIndex={6} />
+          <RenderNews newsLocale={news} startIndex={6} locale={locals} />
         </div>
       </div>
     </div>

@@ -12,6 +12,7 @@ const Dropdown = () => {
 
   const handleChange = (event) => {
     const selectedLang = event.target.value;
+    if (selectedLang == "en") return router.push(`/`);
     if (selectedLang) {
       router.push(`/${selectedLang}`);
     }
