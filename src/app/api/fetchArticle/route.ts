@@ -10,7 +10,7 @@ export const POST = async (req: Request) => {
     var { slugtitle, locale } = data;
 
     if (!locale) locale = "en";
-    // Validate input
+
     if (!slugtitle || !locale) {
       return new Response(
         JSON.stringify({
@@ -20,7 +20,6 @@ export const POST = async (req: Request) => {
       );
     }
 
-    // Query to fetch the news item with translations
     const query = `
       SELECT 
         n.id, 
@@ -28,8 +27,8 @@ export const POST = async (req: Request) => {
         n.date, 
         n.source_url, 
         n.img_url,
-        nt.title AS translated_title,
-        nt.description AS translated_description
+        nt.title,
+        nt.description
       FROM 
         news n
       JOIN 
@@ -38,12 +37,10 @@ export const POST = async (req: Request) => {
         nt.slugtitle = $1 AND nt.locale = $2
     `;
 
-    // Execute the query
     const client = await pool.connect();
     try {
       const result = await client.query(query, [slugtitle, locale]);
 
-      // Check if news item exists
       if (result.rows.length === 0) {
         return new Response(
           JSON.stringify({
@@ -53,7 +50,6 @@ export const POST = async (req: Request) => {
         );
       }
 
-      // Return the first (and should be only) matching news item
       return new Response(
         JSON.stringify({
           message: "success",

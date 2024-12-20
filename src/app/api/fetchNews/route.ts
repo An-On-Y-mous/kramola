@@ -22,7 +22,7 @@ export const GET = async (request: Request) => {
       ...newsItem,
       title: translation?.title || "No title available",
       description: translation?.description || "No description available",
-      slugTitle: translation?.slugTitle || newsItem.slugTitle,
+      slugTitle: translation?.slugtitle || newsItem.slugtitle,
     };
   });
 

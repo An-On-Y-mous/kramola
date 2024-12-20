@@ -3,15 +3,14 @@ import Image from "next/image";
 
 interface Params {
   slugtitle: string;
-  locals: string;
-  title: string;
+  locale: string;
 }
 interface Props {
   params: Params;
 }
 
 const ArticlePage: NextPage<Props> = async ({ params }) => {
-  const { title, locals } = await params;
+  const { slugtitle } = await params;
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/fetchArticle`,
     {
@@ -19,11 +18,12 @@ const ArticlePage: NextPage<Props> = async ({ params }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ slugtitle: title, locale: locals }),
+      body: JSON.stringify({ slugtitle, locale: "en" }),
     }
   );
 
   const { newsItem } = await res.json();
+  // console.log(newsItem);
 
   return (
     <div>
