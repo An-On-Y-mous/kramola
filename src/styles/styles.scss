@@ -115,8 +115,9 @@ $proxima: var(--font-proxima);
     font-weight: 400;
   }
   .news-image {
+    flex-shrink: 0;
     img {
-      width: 250px;
+      width: 200px;
       height: 120px;
       object-fit: cover;
       overflow: hidden;
