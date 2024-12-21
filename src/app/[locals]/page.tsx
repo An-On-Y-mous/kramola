@@ -40,7 +40,7 @@ export default async function LocalePage({
           <div className="right">
             <RenderNews
               newsLocale={news}
-              limit={5}
+              limit={4}
               startIndex={1}
               locale={locals}
             />
@@ -50,7 +50,7 @@ export default async function LocalePage({
           Latest News
         </h1>
         <div className="grid-view">
-          <RenderNews newsLocale={news} startIndex={6} locale={locals} />
+          <RenderNews newsLocale={news} startIndex={5} locale={locals} />
         </div>
       </div>
     </div>

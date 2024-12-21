@@ -19,14 +19,14 @@ export default async function Home() {
             <RenderNews newsLocale={news} limit={1} />
           </div>
           <div className="right">
-            <RenderNews newsLocale={news} limit={5} startIndex={1} />
+            <RenderNews newsLocale={news} limit={4} startIndex={1} />
           </div>
         </div>
         <h1 className="font-bebas text-[48px] text-center my-[3vh] mx-auto">
           Latest News
         </h1>
         <div className="grid-view">
-          <RenderNews newsLocale={news} startIndex={6} />
+          <RenderNews newsLocale={news} startIndex={5} />
         </div>
       </div>
     </div>
