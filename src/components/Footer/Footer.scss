@@ -2,8 +2,9 @@
 
 .footer-parent {
   margin-top: 4vh;
-  background-color: rgba($color: white, $alpha: 0.2);
-  padding: 1vh 2vw;
+  background-color: $pri-col;
+  color: white;
+  padding: 1.5vh 2vw;
   font-family: $poppins;
   width: 100%;
   position: relative;
@@ -17,12 +18,15 @@
 }
 
 .footer-left {
-  font-size: 1rem;
-  line-height: 3.5vh;
   h3 {
+    font-family: $proximaBlack;
+    letter-spacing: 1px;
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: $--26px;
     text-transform: uppercase;
+  }
+  p {
+    font-size: $--12px;
   }
 }
 
@@ -31,5 +35,6 @@
     display: flex;
     gap: 2vw;
     align-items: center;
+    font-size: $--14px;
   }
 }
