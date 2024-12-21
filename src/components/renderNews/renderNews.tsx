@@ -1,5 +1,5 @@
 // src / app / component / renderNews / renderNews.tsx;
-import "./renderNews.scss";
+// import "./renderNews.scss";
 import NewsItem from "../newsItem/newsItem";
 
 interface NewsItemType {
