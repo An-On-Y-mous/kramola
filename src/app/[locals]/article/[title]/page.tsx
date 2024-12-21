@@ -3,17 +3,31 @@ import Image from "next/image";
 import Link from "next/link";
 import "@/styles/article.scss";
 
+// Define the params interface
 interface Params {
-  slugtitle: string;
   locals: string;
   title: string;
 }
+
+// Define the props interface for the page component
 interface Props {
   params: Params;
+  searchParams?: { [key: string]: string | string[] | undefined };
 }
 
-const ArticlePage: NextPage<Props> = async ({ params }) => {
-  const { title, locals } = await params;
+// Define the news item interface
+interface NewsItem {
+  img_url: string;
+  title: string;
+  description: string;
+  date: string;
+  source_url: string;
+}
+
+// Use the correct Next.js page type definition
+const ArticlePage = async ({ params }: Props) => {
+  const { title, locals } = params;
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/fetchArticle`,
     {
@@ -25,7 +39,7 @@ const ArticlePage: NextPage<Props> = async ({ params }) => {
     }
   );
 
-  const { newsItem } = await res.json();
+  const { newsItem }: { newsItem: NewsItem } = await res.json();
 
   return (
     <div className="article-main">
@@ -49,7 +63,12 @@ const ArticlePage: NextPage<Props> = async ({ params }) => {
               day: "numeric",
             })}
           </p>
-          <Link className="articel-read-more" href={newsItem.source_url}>
+          <Link
+            className="articel-read-more"
+            href={newsItem.source_url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Read More
           </Link>
         </div>

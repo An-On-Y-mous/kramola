@@ -49,7 +49,12 @@ const ArticlePage: NextPage<Props> = async ({ params }) => {
               day: "numeric",
             })}
           </p>
-          <Link className="articel-read-more" href={newsItem.source_url}>
+          <Link
+            className="articel-read-more"
+            href={newsItem.source_url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Read More
           </Link>
         </div>

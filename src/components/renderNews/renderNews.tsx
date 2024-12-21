@@ -42,6 +42,7 @@ const RenderNews = ({
                   date={value.date}
                   img_url={value.img_url}
                   source_url={value.source_url}
+                  intReadMore={true}
                   slugTitle={value.slugTitle}
                   locale={locale}
                 />

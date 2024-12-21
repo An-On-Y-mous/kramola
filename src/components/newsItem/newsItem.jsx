@@ -11,6 +11,7 @@ const NewsItem = ({
   source_url,
   slugTitle,
   locale,
+  intReadMore = false,
 }) => {
   return (
     <div className="news-item">
@@ -34,11 +35,18 @@ const NewsItem = ({
             className="news-description"
             dangerouslySetInnerHTML={{ __html: description }}
           ></div>
+
           <div className="date-read">
             <div className="news-read-more-link">
               <Link
-                href={`${source_url}`}
-                target="_blank"
+                href={
+                  intReadMore
+                    ? locale
+                      ? `/${locale}/article/${slugTitle}`
+                      : `/article/${slugTitle}`
+                    : source_url
+                }
+                target={intReadMore ? "" : "_blank"}
                 rel="noopener noreferrer"
               >
                 Read More
