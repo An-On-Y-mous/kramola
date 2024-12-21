@@ -46,7 +46,7 @@ export default async function LocalePage({
             />
           </div>
         </div>
-        <h1 className="font-bebas text-[48px] text-center my-[3vh] mx-auto">
+        <h1 className="font-proximaBlack uppercase text-[38px] text-center my-[3vh] mx-auto">
           Latest News
         </h1>
         <div className="grid-view">

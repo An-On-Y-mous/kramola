@@ -33,10 +33,10 @@ $proxima: var(--font-proxima);
   min-height: 100vh;
 }
 .parent-container {
-  margin-top: 4vh;
   display: flex;
   gap: 2vw;
-  padding: 0vh 3vw;
+  padding: 4vh 3vw 0vh 3vw;
+  background-color: rgb(240, 240, 240);
 }
 
 //LEFT SIDE
@@ -132,13 +132,15 @@ $proxima: var(--font-proxima);
   ul {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1.5vw;
+    row-gap: 4vh;
+    column-gap: 1vw;
     grid-auto-rows: minmax(300px, auto);
     padding: 0vh 3vw;
   }
-  .news-item {
-    height: 340px;
-  }
+  // .news-item {
+  //   height: 330px;
+  //   background-color: red;
+  // }
   .news-container {
     display: flex;
     flex-direction: column;
