@@ -1,0 +1,46 @@
+@import "../styles/styles.scss";
+
+.article-main {
+  margin: 4vh 10vw;
+}
+
+.article-container {
+  @include flex-center(column);
+  gap: 3vh;
+}
+.article-img {
+  width: 100vh;
+  height: 100%;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 2vw;
+  }
+}
+.article-title {
+  font-family: $helveticaMedium;
+  font-weight: bold;
+  font-size: $--38px;
+  text-align: center;
+}
+.article-description {
+  font-family: $poppins;
+  font-size: $--18px;
+  text-align: justify;
+}
+.article-subcontainer {
+  @include flex-center();
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 1vh;
+}
+.article-data {
+  font-family: $poppins;
+  font-size: $--16px;
+}
+.articel-read-more {
+  font-family: $poppins;
+  font-size: $--16px;
+  text-decoration: underline;
+}
