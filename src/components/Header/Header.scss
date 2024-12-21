@@ -6,6 +6,8 @@
   align-items: center;
   font-family: $poppins;
   padding: 2vh 4vw;
+  background-color: $pri-col;
+  color: white;
 }
 
 .nav-container {
@@ -16,13 +18,11 @@
 
 .nav-title {
   a {
-    font-size: $--34px;
+    font-size: $--26px;
     font-weight: bold;
     text-transform: uppercase;
-    transition: transform 0.3s ease-in-out;
-  }
-  &:hover {
-    transform: scale(1.1);
+    font-family: $proximaBlack;
+    letter-spacing: 1px;
   }
 }
 
@@ -32,7 +32,6 @@
     list-style: none;
     gap: 2vw;
     font-weight: 500;
-    font-size: 1.3rem;
 
     a {
       position: relative;

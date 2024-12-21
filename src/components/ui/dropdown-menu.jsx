@@ -19,8 +19,12 @@ const Dropdown = () => {
   };
 
   return (
-    <div className="font-poppins text-[19px] text-center font-medium">
-      <select defaultValue="" onChange={handleChange}>
+    <div className="font-poppins text-[15px] text-center font-medium text-white bg-[#222222]">
+      <select
+        className="bg-[#222222] text-center"
+        defaultValue=""
+        onChange={handleChange}
+      >
         <option value="" disabled>
           Select Language
         </option>
