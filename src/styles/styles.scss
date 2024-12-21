@@ -45,7 +45,7 @@ $proxima: var(--font-proxima);
   .news-container {
     @include flex-center(column);
     flex-direction: column-reverse;
-    gap: 1vh;
+    gap: 3vh;
   }
   .news-title {
     font-family: $proxima;
@@ -82,6 +82,7 @@ $proxima: var(--font-proxima);
     @include flex-center();
     flex-direction: row-reverse;
     gap: 1vw;
+    margin-bottom: 5vh;
   }
   .news-subcontainer {
     display: flex;
