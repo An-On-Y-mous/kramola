@@ -128,6 +128,9 @@ $proxima: var(--font-proxima);
 }
 
 //CARDS
+.news-cards {
+  display: none;
+}
 .news-item {
   display: flex;
 }

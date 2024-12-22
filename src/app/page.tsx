@@ -1,14 +1,32 @@
 import RenderNews from "@/components/renderNews/renderNews";
 import "@/styles/styles.scss";
 
+// Add type for news data
+type NewsData = any; // Replace 'any' with your actual news data type
+
 export default async function Home() {
-  const fetchNews = async () => {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/fetchNews?locale=en`
-    );
-    const data = await response.json();
-    return data;
+  const fetchNews = async (): Promise<NewsData> => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/fetchNews?locale=en`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return [];
+    }
   };
+
   const news = await fetchNews();
 
   return (
