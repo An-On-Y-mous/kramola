@@ -12,6 +12,10 @@ interface NewsItemType {
   slugTitle: string;
 }
 
+interface Params {
+  locals: string;
+}
+
 async function fetchNews(locale: string): Promise<NewsItemType[]> {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/fetchNews?locale=${locale}`
@@ -25,7 +29,7 @@ async function fetchNews(locale: string): Promise<NewsItemType[]> {
 export default async function LocalePage({
   params,
 }: {
-  params: { locals: string };
+  params: Promise<Params>;
 }) {
   const { locals } = await params;
   const news = await fetchNews(locals);

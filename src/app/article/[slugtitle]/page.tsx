@@ -1,4 +1,3 @@
-import { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import "@/styles/article.scss";
@@ -7,12 +6,11 @@ interface Params {
   slugtitle: string;
   locale: string;
 }
-interface Props {
-  params: Params;
-}
 
-const ArticlePage: NextPage<Props> = async ({ params }) => {
+const ArticlePage = async ({ params }: { params: Promise<Params> }) => {
+  // Await the resolved params
   const { slugtitle } = await params;
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/fetchArticle`,
     {
@@ -25,7 +23,6 @@ const ArticlePage: NextPage<Props> = async ({ params }) => {
   );
 
   const { newsItem } = await res.json();
-  // console.log(newsItem);
 
   return (
     <div className="article-main">

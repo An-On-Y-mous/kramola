@@ -1,33 +1,14 @@
-import { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import "@/styles/article.scss";
 
-// Define the params interface
 interface Params {
   locals: string;
   title: string;
 }
 
-// Define the props interface for the page component
-interface Props {
-  params: Params;
-  searchParams?: { [key: string]: string | string[] | undefined };
-}
-
-// Define the news item interface
-interface NewsItem {
-  img_url: string;
-  title: string;
-  description: string;
-  date: string;
-  source_url: string;
-}
-
-// Use the correct Next.js page type definition
-const ArticlePage = async ({ params }: Props) => {
-  const { title, locals } = params;
-
+const ArticlePage = async ({ params }: { params: Promise<Params> }) => {
+  const { title, locals } = await params;
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/fetchArticle`,
     {
@@ -39,7 +20,7 @@ const ArticlePage = async ({ params }: Props) => {
     }
   );
 
-  const { newsItem }: { newsItem: NewsItem } = await res.json();
+  const { newsItem } = await res.json();
 
   return (
     <div className="article-main">
