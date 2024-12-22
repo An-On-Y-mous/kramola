@@ -1,5 +1,4 @@
 import RenderNews from "@/components/renderNews/renderNews";
-import Loader from "@/app/Loader";
 import "@/styles/styles.scss";
 
 interface NewsItemType {
