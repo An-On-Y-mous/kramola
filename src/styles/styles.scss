@@ -127,6 +127,16 @@ $proxima: var(--font-proxima);
   }
 }
 
+//CARDS
+.news-item {
+  display: flex;
+}
+
+.news-container {
+  display: flex;
+  gap: 2vw;
+}
+
 //GRID VIEW
 .grid-view {
   ul {
