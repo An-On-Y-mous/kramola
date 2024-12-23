@@ -1,3 +1,4 @@
+import GridView from "@/components/gridView/gridView";
 import RenderNews from "@/components/renderNews/renderNews";
 import "@/styles/styles.scss";
 
@@ -55,8 +56,8 @@ export default async function LocalePage({
         <h1 className="font-proximaBlack uppercase text-[38px] text-center my-[3vh] mx-auto">
           Latest News
         </h1>
-        <div className="grid-view">
-          <RenderNews newsLocale={news} startIndex={5} locale={locals} />
+        <div>
+          <GridView locale={locals} />
         </div>
       </div>
     </div>

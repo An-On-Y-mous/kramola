@@ -49,7 +49,7 @@ export default async function Home() {
           Latest News
         </h1>
         <div>
-          <GridView />
+          <GridView locale="en" />
         </div>
       </div>
     </div>

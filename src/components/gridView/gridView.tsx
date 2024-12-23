@@ -5,10 +5,14 @@ import RenderNews from "../renderNews/renderNews";
 
 type NewsData = any;
 
+interface GridViewProps {
+  locale: string;
+}
+
 const ITEMS_PER_ROW = 4;
 const INITIAL_ROWS = 2;
 
-const GridView = () => {
+const GridView = ({ locale }: GridViewProps) => {
   const [visibleRows, setVisibleRows] = useState(INITIAL_ROWS);
   const [news, setNews] = useState<NewsData>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -17,7 +21,7 @@ const GridView = () => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/fetchNews?locale=en`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/fetchNews?locale=${locale}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -40,7 +44,7 @@ const GridView = () => {
 
   useEffect(() => {
     fetchNews();
-  }, []);
+  }, [locale]);
 
   const handleLoadMore = () => {
     setVisibleRows((prevRows) => prevRows + 2);
