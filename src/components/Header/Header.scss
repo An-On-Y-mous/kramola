@@ -12,7 +12,8 @@
 
 .nav-container {
   @include flex-center();
-  justify-content: flex-start;
+  width: 100%;
+  justify-content: space-between;
   gap: 2vw;
 }
 
@@ -31,8 +32,6 @@
     @include flex-center();
     list-style: none;
     gap: 2vw;
-    font-weight: 500;
-
     a {
       position: relative;
       text-decoration: none;
@@ -44,7 +43,7 @@
         height: 2px;
         bottom: -4px;
         left: 0;
-        background-color: currentColor;
+        background-color: $sec-col;
         transition: width 0.3s ease-in-out;
       }
 

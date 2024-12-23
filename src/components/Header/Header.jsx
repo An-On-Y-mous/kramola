@@ -18,8 +18,10 @@ const Header = ({}) => {
             <Link href={"/aboutus"}>About Us</Link>
           </ul>
         </div>
+        <div className="lan">
+          <Dropdown />
+        </div>
       </div>
-      <Dropdown />
     </div>
   );
 };
