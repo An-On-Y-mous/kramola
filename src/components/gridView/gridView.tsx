@@ -55,7 +55,12 @@ const GridView = ({ locale }: GridViewProps) => {
 
   return (
     <div className="grid-view">
-      <RenderNews newsLocale={news} startIndex={7} limit={visibleItems} />
+      <RenderNews
+        newsLocale={news}
+        startIndex={7}
+        limit={visibleItems}
+        locale={locale}
+      />
 
       {hasMoreItems && (
         <div className="flex justify-center mt-8">

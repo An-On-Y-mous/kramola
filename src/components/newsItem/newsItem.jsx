@@ -23,7 +23,7 @@ const NewsItem = ({
           <div className="news-title">
             <Link
               href={
-                !locale
+                !locale || locale === "en"
                   ? `/article/${slugTitle}`
                   : `/${locale}/article/${slugTitle}`
               }
