@@ -1,5 +1,3 @@
-// src / app / component / renderNews / renderNews.tsx;
-// import "./renderNews.scss";
 import NewsItem from "../newsItem/newsItem";
 
 interface NewsItemType {
@@ -13,24 +11,23 @@ interface NewsItemType {
 }
 
 const RenderNews = ({
-  newsLocale, // Changed prop name to newsLocale
+  newsLocale,
   limit,
   startIndex = 0,
   locale,
 }: {
-  newsLocale: NewsItemType[]; // Updated type to match the new prop name
+  newsLocale: NewsItemType[];
   limit?: number;
   startIndex?: number;
   locale?: String;
 }) => {
-  // Slice the news data based on limit and startIndex
   const limitedNews = limit
     ? newsLocale.slice(startIndex, startIndex + limit)
     : newsLocale.slice(startIndex);
 
   return (
     <div className="render-news-container">
-      {limitedNews.length > 0 ? (
+      {limitedNews.length > 0 && (
         <div className="render-news">
           <ul>
             {limitedNews.map((value, index) => (
@@ -50,8 +47,6 @@ const RenderNews = ({
             ))}
           </ul>
         </div>
-      ) : (
-        <p>No news available</p>
       )}
     </div>
   );
