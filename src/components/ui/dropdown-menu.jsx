@@ -21,15 +21,15 @@ const Dropdown = () => {
   return (
     <div className="font-poppins text-[15px] text-center font-medium text-white bg-[#222222]">
       <select
-        className="bg-[#222222] text-center"
+        className="bg-black text-center outline-none border-none"
         defaultValue=""
         onChange={handleChange}
       >
-        <option value="" disabled>
+        <option className="hover:bg-red-800" value="" disabled>
           Select Language
         </option>
         {languageOptions.map((option) => (
-          <option key={option.key} value={option.value}>
+          <option className="bg-red-800" key={option.key} value={option.value}>
             {option.text}
           </option>
         ))}
