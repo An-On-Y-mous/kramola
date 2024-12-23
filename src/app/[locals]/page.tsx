@@ -49,6 +49,9 @@ export default async function LocalePage({
             />
           </div>
         </div>
+        <div className="news-cards">
+          <RenderNews newsLocale={news} limit={2} startIndex={5} />
+        </div>
         <h1 className="font-proximaBlack uppercase text-[38px] text-center my-[3vh] mx-auto">
           Latest News
         </h1>

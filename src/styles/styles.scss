@@ -129,15 +129,111 @@ $proxima: var(--font-proxima);
 
 //CARDS
 .news-cards {
-  display: none;
-}
-.news-item {
-  display: flex;
+  margin: 5vh 0vw 6vh 0vw;
+  ul {
+    @include flex-center();
+    gap: 2vw;
+    padding: 0vh 3vw;
+    flex: 50%;
+  }
+
+  .news-item {
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+    }
+  }
+
+  .news-container {
+    position: relative;
+  }
+  .news-subcontainer {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .news-image {
+    position: relative;
+
+    img {
+      width: 700px;
+      height: 380px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      opacity: 0.9;
+      transition: opacity 0.3s ease;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+      transition: background-color 0.3s ease;
+    }
+  }
+
+  .news-subcontainer {
+    position: absolute;
+    bottom: 0;
+    padding: 2vh 1vw;
+    z-index: 1;
+  }
+
+  .news-title {
+    font-family: $proxima;
+    font-size: 22px;
+    font-weight: 600;
+
+    h3 {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      margin: 0;
+      color: white;
+    }
+  }
+
+  .news-description {
+    display: none;
+  }
+
+  .news-read-more-link {
+    display: none;
+  }
+
+  .news-date {
+    font-size: $--12px;
+    font-weight: 400;
+    color: white;
+    margin-bottom: 0.5vh;
+  }
 }
 
-.news-container {
-  display: flex;
-  gap: 2vw;
+@media screen and (max-width: 768px) {
+  .news-cards {
+    ul {
+      gap: 1rem;
+    }
+
+    .news-item {
+      width: 100%;
+    }
+
+    .news-title {
+      font-size: $--16px;
+    }
+  }
 }
 
 //GRID VIEW
@@ -150,10 +246,6 @@ $proxima: var(--font-proxima);
     grid-auto-rows: minmax(300px, auto);
     padding: 0vh 3vw;
   }
-  // .news-item {
-  //   height: 330px;
-  //   background-color: red;
-  // }
   .news-container {
     display: flex;
     flex-direction: column;
