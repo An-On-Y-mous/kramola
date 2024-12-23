@@ -1,5 +1,7 @@
 import RenderNews from "@/components/renderNews/renderNews";
 import "@/styles/styles.scss";
+import "@/components/gridView/gridView";
+import GridView from "@/components/gridView/gridView";
 
 // Add type for news data
 type NewsData = any;
@@ -46,8 +48,8 @@ export default async function Home() {
         <h1 className="font-proximaBlack uppercase text-[38px] text-center my-[2vh] mx-auto">
           Latest News
         </h1>
-        <div className="grid-view">
-          <RenderNews newsLocale={news} startIndex={7} />
+        <div>
+          <GridView />
         </div>
       </div>
     </div>
