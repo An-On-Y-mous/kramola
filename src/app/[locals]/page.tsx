@@ -1,7 +1,9 @@
-import GridView from "@/components/gridView/gridView";
 import RenderNews from "@/components/renderNews/renderNews";
 import "@/styles/styles.scss";
 
+import dynamic from "next/dynamic";
+
+const GridView = dynamic(() => import("@/components/gridView/gridView"));
 interface NewsItemType {
   id?: number;
   title: string;
@@ -14,6 +16,7 @@ interface NewsItemType {
 
 interface Params {
   locals: string;
+  newsLocale: string;
 }
 
 async function fetchNews(locale: string): Promise<NewsItemType[]> {
@@ -51,7 +54,12 @@ export default async function LocalePage({
           </div>
         </div>
         <div className="news-cards">
-          <RenderNews newsLocale={news} limit={2} startIndex={5} />
+          <RenderNews
+            newsLocale={news}
+            limit={2}
+            locale={locals}
+            startIndex={5}
+          />
         </div>
         <h1 className="font-proximaBlack uppercase text-[38px] text-center my-[3vh] mx-auto">
           Latest News

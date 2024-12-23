@@ -1,9 +1,10 @@
 import RenderNews from "@/components/renderNews/renderNews";
 import "@/styles/styles.scss";
 import "@/components/gridView/gridView";
-import GridView from "@/components/gridView/gridView";
+import dynamic from "next/dynamic";
 
-// Add type for news data
+const GridView = dynamic(() => import("@/components/gridView/gridView"));
+
 type NewsData = any;
 
 export default async function Home() {
