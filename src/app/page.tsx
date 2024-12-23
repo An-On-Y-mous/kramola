@@ -2,7 +2,7 @@ import RenderNews from "@/components/renderNews/renderNews";
 import "@/styles/styles.scss";
 
 // Add type for news data
-type NewsData = any; // Replace 'any' with your actual news data type
+type NewsData = any;
 
 export default async function Home() {
   const fetchNews = async (): Promise<NewsData> => {
