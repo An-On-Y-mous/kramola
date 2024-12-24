@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import "@/styles/article.scss";
+import RenderNews from "@/components/renderNews/renderNews";
 
 interface Params {
   locals: string;
@@ -21,6 +22,31 @@ const ArticlePage = async ({ params }: { params: Promise<Params> }) => {
   );
 
   const { newsItem } = await res.json();
+
+  const fetchNews = async (): Promise<any[]> => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/fetchNews?locale=${locals}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return [];
+    }
+  };
+
+  const relatedNews = await fetchNews();
+  // console.log(relatedNews);
 
   return (
     <div className="article-main">
@@ -52,6 +78,23 @@ const ArticlePage = async ({ params }: { params: Promise<Params> }) => {
           >
             Read More
           </Link>
+        </div>
+      </div>
+      <div className="releated-news">
+        <h2 className="text-center uppercase text-[34px] font-proximaBlack my-[3vh]">
+          More{" "}
+          <span className="text-[#fc3e02] font-proximaBlack">
+            <Link href={"/"}>Politics</Link>
+          </span>{" "}
+          News
+        </h2>
+        <div className="grid-view">
+          <RenderNews
+            newsLocale={relatedNews}
+            locale={locals}
+            limit={4}
+            startIndex={5}
+          />
         </div>
       </div>
     </div>
