@@ -47,7 +47,7 @@ export default async function LocalePage({
           <div className="right">
             <RenderNews
               newsLocale={news}
-              limit={4}
+              limit={3}
               startIndex={1}
               locale={locals}
             />
@@ -58,7 +58,7 @@ export default async function LocalePage({
             newsLocale={news}
             limit={2}
             locale={locals}
-            startIndex={5}
+            startIndex={4}
           />
         </div>
         <h1 className="font-proximaBlack uppercase text-[38px] text-center my-[3vh] mx-auto">

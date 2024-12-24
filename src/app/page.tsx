@@ -40,11 +40,11 @@ export default async function Home() {
             <RenderNews newsLocale={news} limit={1} />
           </div>
           <div className="right">
-            <RenderNews newsLocale={news} limit={4} startIndex={1} />
+            <RenderNews newsLocale={news} limit={3} startIndex={1} />
           </div>
         </div>
         <div className="news-cards">
-          <RenderNews newsLocale={news} limit={2} startIndex={5} />
+          <RenderNews newsLocale={news} limit={2} startIndex={4} />
         </div>
         <h1 className="font-proximaBlack uppercase text-[38px] text-center my-[2vh] mx-auto">
           Latest News
