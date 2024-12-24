@@ -90,6 +90,13 @@ $proxima: var(--font-proxima);
 //RIGHT SIDE
 .right {
   flex: 45%;
+  .news-item {
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.01);
+    }
+  }
   .news-container {
     @include flex-center();
     display: flex;
@@ -118,6 +125,7 @@ $proxima: var(--font-proxima);
     line-clamp: 2;
     text-overflow: ellipsis;
     overflow: hidden;
+    margin-top: -2.2vh;
   }
   .news-description {
     color: gray;
@@ -156,7 +164,7 @@ $proxima: var(--font-proxima);
 
 //CARDS
 .news-cards {
-  margin: 5vh 0vw 6vh 0vw;
+  margin: 3vh 0vw 6vh 0vw;
   ul {
     @include flex-center();
     gap: 2vw;
@@ -280,6 +288,11 @@ $proxima: var(--font-proxima);
     justify-content: center;
     align-items: center;
     gap: 1vh;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+    }
   }
   .news-title {
     font-family: $proxima;
@@ -307,10 +320,17 @@ $proxima: var(--font-proxima);
     margin-top: 1vh;
   }
   .news-image {
+    flex-shrink: 0;
     img {
+      // width: 370px;
+      // height: 230px;
+      // object-fit: cover;
+      // border-radius: 0.5rem;
+
       width: 370px;
-      height: 230px;
+      height: 180px;
       object-fit: cover;
+      overflow: hidden;
       border-radius: 0.5rem;
     }
   }
