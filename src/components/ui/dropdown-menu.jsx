@@ -1,5 +1,5 @@
-import React from "react";
-import { useRouter } from "next/navigation";
+import React, { useState, useRef, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
 
 const languageOptions = [
   { key: "English", text: "English", value: "en" },
@@ -9,31 +9,91 @@ const languageOptions = [
 
 const Dropdown = () => {
   const router = useRouter();
+  const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState("Select Language");
+  const dropdownRef = useRef(null);
 
-  const handleChange = (event) => {
-    const selectedLang = event.target.value;
-    if (selectedLang == "en") return router.push(`/`);
-    if (selectedLang) {
-      router.push(`/${selectedLang}`);
+  // Update selected language based on current route
+  useEffect(() => {
+    if (pathname === "/") {
+      setSelectedLanguage("Select Language");
+    } else {
+      const currentLang = pathname.slice(1); // Remove the leading slash
+      const language = languageOptions.find((opt) => opt.value === currentLang);
+      if (language) {
+        setSelectedLanguage(language.text);
+      }
     }
+  }, [pathname]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleLanguageSelect = (value, text) => {
+    if (value === "en") {
+      router.push("/");
+    } else {
+      router.push(`/${value}`);
+    }
+    setIsOpen(false);
   };
 
   return (
-    <div className="font-poppins text-[15px] text-center font-medium text-white bg-[#222222]">
-      <select
-        className="bg-black text-center outline-none border-none"
-        defaultValue=""
-        onChange={handleChange}
+    <div className="relative inline-block text-left" ref={dropdownRef}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="text-white bg-black focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+        type="button"
       >
-        <option className="hover:bg-red-800" value="" disabled>
-          Select Language
-        </option>
-        {languageOptions.map((option) => (
-          <option className="bg-red-800" key={option.key} value={option.value}>
-            {option.text}
-          </option>
-        ))}
-      </select>
+        {selectedLanguage}
+        <svg
+          className="w-2.5 h-2.5 ms-3"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 10 6"
+        >
+          <path
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="m1 1 4 4 4-4"
+          />
+        </svg>
+      </button>
+
+      {isOpen && (
+        <div className="absolute mt-2 z-10 bg-[#222222] divide-y divide-gray-100 rounded-lg shadow w-44">
+          <ul className="py-2 text-sm text-white">
+            {languageOptions.map((option) => (
+              <li key={option.key}>
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleLanguageSelect(option.value, option.text);
+                  }}
+                  className="block px-4 py-2 hover:bg-gray-600 text-center"
+                >
+                  {option.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
