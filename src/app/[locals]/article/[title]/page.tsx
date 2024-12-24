@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import "@/styles/article.scss";
-import RenderNews from "@/components/renderNews/renderNews";
+import dynamic from "next/dynamic";
+
+const RenderNews = dynamic(() => import("@/components/renderNews/renderNews"));
 
 interface Params {
   locals: string;
@@ -79,6 +81,10 @@ const ArticlePage = async ({ params }: { params: Promise<Params> }) => {
             Read More
           </Link>
         </div>
+      </div>
+      <div className="divider">
+        {/* <hr className="my-12 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-75 dark:via-neutral-400" /> */}
+        <hr className="my-12 h-[1.5px] border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-75 dark:via-neutral-400" />
       </div>
       <div className="releated-news">
         <h2 className="text-center uppercase text-[34px] font-proximaBlack my-[3vh]">
