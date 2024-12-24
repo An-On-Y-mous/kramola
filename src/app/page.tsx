@@ -43,10 +43,13 @@ export default async function Home() {
             <RenderNews newsLocale={news} limit={3} startIndex={1} />
           </div>
         </div>
+        <h1 className="font-proximaBlack uppercase text-[38px] text-left mt-6 mx-[3.2vw]">
+          Recent Updates
+        </h1>
         <div className="news-cards">
           <RenderNews newsLocale={news} limit={2} startIndex={4} />
         </div>
-        <h1 className="font-proximaBlack uppercase text-[38px] text-center my-[2vh] mx-auto">
+        <h1 className="font-proximaBlack uppercase text-[38px] text-left my-[2vh] mx-[3.2vw]">
           Latest News
         </h1>
         <div>
