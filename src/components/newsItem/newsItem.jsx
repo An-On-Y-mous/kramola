@@ -17,7 +17,15 @@ const NewsItem = ({
     <div className="news-item">
       <div className="news-container">
         <div className="news-image">
-          <Image src={img_url} width={1200} height={600} alt="image" />
+          <Link
+            href={
+              !locale || locale === "en"
+                ? `/article/${slugTitle}`
+                : `/${locale}/article/${slugTitle}`
+            }
+          >
+            <Image src={img_url} width={1200} height={600} alt="image" />
+          </Link>
         </div>
         <div className="news-subcontainer">
           <div className="news-title">
@@ -31,10 +39,20 @@ const NewsItem = ({
               <h3>{title}</h3>
             </Link>
           </div>
-          <div
-            className="news-description"
-            dangerouslySetInnerHTML={{ __html: description }}
-          ></div>
+          <div>
+            <Link
+              href={
+                !locale || locale === "en"
+                  ? `/article/${slugTitle}`
+                  : `/${locale}/article/${slugTitle}`
+              }
+            >
+              <div
+                className="news-description"
+                dangerouslySetInnerHTML={{ __html: description }}
+              ></div>
+            </Link>
+          </div>
 
           <div className="date-read">
             <div className="news-read-more-link">
@@ -53,15 +71,23 @@ const NewsItem = ({
               </Link>
             </div>
             <div className="news-date">
-              <p>
-                {date
-                  ? new Date(date).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })
-                  : "Loading..."}
-              </p>
+              <Link
+                href={
+                  !locale || locale === "en"
+                    ? `/article/${slugTitle}`
+                    : `/${locale}/article/${slugTitle}`
+                }
+              >
+                <p>
+                  {date
+                    ? new Date(date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })
+                    : "Loading..."}
+                </p>
+              </Link>
             </div>
           </div>
         </div>
