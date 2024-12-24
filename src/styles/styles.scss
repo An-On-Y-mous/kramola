@@ -36,7 +36,7 @@ $proxima: var(--font-proxima);
 .parent-container {
   display: flex;
   gap: 2vw;
-  padding: 4vh 3vw 0vh 3vw;
+  padding: 6vh 3vw 5vh 3vw;
   background-color: rgb(240, 240, 240);
 }
 
@@ -48,11 +48,21 @@ $proxima: var(--font-proxima);
     flex-direction: column-reverse;
     gap: 3vh;
   }
+  .news-container {
+    display: flex;
+    align-items: self-start;
+  }
   .news-title {
     font-family: $proxima;
     font-weight: bold;
-    font-size: $--32px;
-    text-align: left;
+    font-size: $--34px;
+    text-align: justify;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
   .news-description {
     display: none;
@@ -62,13 +72,14 @@ $proxima: var(--font-proxima);
   }
   .news-date {
     font-size: $--14px;
-    align-self: start;
     font-weight: 300;
   }
   .news-image {
     img {
-      width: 900px;
-      height: 450px;
+      width: 780px;
+      height: 420px;
+      // width: 85%;
+      // height: 50%;
       object-fit: cover;
       border-radius: 0.5rem;
       overflow: hidden;
@@ -81,26 +92,38 @@ $proxima: var(--font-proxima);
   flex: 45%;
   .news-container {
     @include flex-center();
+    display: flex;
     flex-direction: row-reverse;
-    gap: 1vw;
-    margin-bottom: 5vh;
+    gap: 1.5vw;
+    margin-bottom: 2vh;
+    // background-color: yellow;
   }
   .news-subcontainer {
+    height: fit-content;
     display: flex;
     flex-direction: column;
-    gap: 1vh;
+    gap: 2vh;
+    justify-content: space-around;
+    // background-color: #fc3e02;
   }
   .news-title {
     font-family: $proxima;
     align-self: flex-start;
-    font-size: $--16px;
+    font-size: $--18px;
     font-weight: 600;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
   .news-description {
     color: gray;
     font-size: $--14px;
     font-family: $poppins;
-    text-align: justify;
+    // text-align: justify;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
@@ -113,14 +136,17 @@ $proxima: var(--font-proxima);
   }
   .news-date {
     font-size: $--12px;
+    font-family: $proxima;
+    color: gray;
+
     align-self: flex-start;
     font-weight: 400;
   }
   .news-image {
     flex-shrink: 0;
     img {
-      width: 200px;
-      height: 120px;
+      width: 290px;
+      height: 180px;
       object-fit: cover;
       overflow: hidden;
       border-radius: 0.5rem;
@@ -215,6 +241,7 @@ $proxima: var(--font-proxima);
 
   .news-date {
     font-size: $--12px;
+    font-family: $proximaBlack;
     font-weight: 400;
     color: white;
     margin-bottom: 0.5vh;
