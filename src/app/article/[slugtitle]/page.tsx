@@ -57,15 +57,17 @@ const ArticlePage = async ({ params }: { params: Promise<Params> }) => {
       <div className="article-container">
         <div className="article-img">
           <Image
-            src={newsItem.img_url}
+            src={newsItem.img_url || "/default-fallback-image.png"}
             alt={newsItem.title}
             width={1280}
             height={720}
           />
         </div>
         <h1 className="article-title">{newsItem.title}</h1>
-        <p className="article-description">{newsItem.description}</p>
-
+        <p
+          className="article-description"
+          dangerouslySetInnerHTML={{ __html: newsItem.description }}
+        />
         <div className="article-subcontainer">
           <p className="article-date">
             {new Date(newsItem.date).toLocaleString("en-US", {

@@ -24,7 +24,12 @@ const NewsItem = ({
                 : `/${locale}/article/${slugTitle}`
             }
           >
-            <Image src={img_url} width={1200} height={600} alt="image" />
+            <Image
+              src={img_url || "/default-fallback-image.png"}
+              width={1200}
+              height={600}
+              alt="image"
+            />
           </Link>
         </div>
         <div className="news-subcontainer">
