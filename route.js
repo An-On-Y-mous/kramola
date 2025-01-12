@@ -1,8 +1,8 @@
 import "dotenv/config";
 import express from "express";
 import pg from "pg";
-import fetch from "node-fetch";
 import OpenAI from "openai";
+import { getJson } from "serpapi";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -19,7 +19,7 @@ const pool = new pg.Pool({
   connectionString: process.env.POSTGRESQL_URL,
 });
 
-// Transliteration map for Russian characters
+// Transliteration and helper functions remain unchanged
 const russianTransliteration = {
   а: "a",
   б: "b",
@@ -89,7 +89,6 @@ const russianTransliteration = {
   Я: "Ya",
 };
 
-// Function to transliterate Russian text
 const transliterateRussian = (text) => {
   return text
     .split("")
@@ -97,7 +96,6 @@ const transliterateRussian = (text) => {
     .join("");
 };
 
-// Function to generate a slug
 const generateSlug = (title, locale) => {
   if (!title) return `untitled-${Date.now()}`;
   let processedTitle = locale === "ru" ? transliterateRussian(title) : title;
@@ -112,7 +110,6 @@ const generateSlug = (title, locale) => {
     .replace(/-+$/, "");
 };
 
-// Function to generate a unique slug
 const generateUniqueSlug = async (title, locale, client) => {
   if (!title) return `untitled-${Date.now()}`;
   let baseSlug = generateSlug(title, locale);
@@ -136,61 +133,79 @@ const generateUniqueSlug = async (title, locale, client) => {
   return uniqueSlug;
 };
 
-// Function to extract JSON from AI response
 function extractJSON(text) {
   try {
+    // Attempt to parse as JSON
     return JSON.parse(text);
   } catch (e) {
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    // Sanitize the input to remove invalid characters
+    const sanitizedText = text.replace(/[\x00-\x1F\x7F]/g, "");
+    const jsonMatch = sanitizedText.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
-      return JSON.parse(jsonMatch[0]);
+      try {
+        return JSON.parse(jsonMatch[0]);
+      } catch (innerError) {
+        throw new Error(
+          `Malformed JSON after sanitization: ${innerError.message}`
+        );
+      }
     }
     throw new Error("Could not extract valid JSON from response");
   }
 }
 
-// Function to process and translate news content using OpenAI
-async function processNewsContent(title, description) {
+// Updated processNewsContent function remains unchanged
+async function processNewsContent(title) {
   const prompt = `
-    You are a language translation AI. Your task is to translate the following news content into Spanish and Russian, and provide an improved description in all language.
+  You are a multilingual news processor. Search the web for information about this news title and create a comprehensive article with translations.
 
-    Original Title: "${title}"
-    Original Description: "${description}"
+  News Title: "${title}"
 
-     Please provide:
-  1. Translations of the title and description in Spanish and Russian
-  2. Title should be as same as the fetched title remove any letter before ":" from the starting of the title only.
-  3. An improved description in English, Russian, Spanish (300-1000 words) that:
-     - Add Necessary pair of line breaks (<br /> <br />) for all description. Don't add hashtags (#) nor bold any text (that is Asterisks (**)) and remove any like this [1] [2] [3] so on.
-     - Includes additional context and related information related to the topic on the web
-     - Use a professional yet conventional tone for easier to understand.
+  Tasks:
+  1. Search recent web sources to gather information about this news topic.
+  
+  2. Generate a detailed description (300-400 words) that:
+     - Summarizes the key points and context from your web search
+     - Includes relevant background information and latest developments
+     - Presents multiple perspectives if applicable
+     - Uses professional journalistic tone
+     - Adds proper paragraph breaks using <br /> <br />
+     - Focuses on factual information from reliable sources
+     - Includes recent context and developments
+     - Remove [1] [2] [3] so on.. references from the text
 
-    Respond with ONLY a JSON object in this exact format, with no additional text or markdown:
-    {
-      "translations": {
-        "en": { "title": "English title", "description": "Improved English description" },
-        "es": { "title": "Spanish title", "description": "Spanish description" },
-        "ru": { "title": "Russian title", "description": "Russian description" }
-      }
-    }`;
+  3. Translate both the title and generated description into Spanish and Russian.
+
+  Respond with ONLY a JSON object in this format:
+  {
+    "translations": {
+      "en": { "title": "English title", "description": "Generated English description with sources" },
+      "es": { "title": "Spanish title", "description": "Spanish translation of description" },
+      "ru": { "title": "Russian title", "description": "Russian translation of description" }
+    }
+  }`;
 
   const completion = await openai.chat.completions.create({
-    model: "llama-3.1-sonar-huge-128k-online",
+    model: "llama-3.1-sonar-small-128k-online",
     messages: [
       {
         role: "system",
         content:
-          "You are a translator AI. Always respond with valid JSON only.",
+          "You are a professional multilingual news processor with web search capabilities. Generate comprehensive descriptions based on current web sources and provide accurate translations.",
       },
       { role: "user", content: prompt },
     ],
   });
 
   const response = completion.choices[0].message.content;
-  return extractJSON(response);
+  const processedContent = extractJSON(response);
+
+  processedContent.translations.en.title = title;
+
+  return processedContent;
 }
 
-// Function to store news in the database
+// Database storage function remains unchanged
 async function storeNewsInDatabase(newsItem, processedContent) {
   const client = await pool.connect();
 
@@ -199,11 +214,7 @@ async function storeNewsInDatabase(newsItem, processedContent) {
 
     const newsResult = await client.query(
       `INSERT INTO news (date, source_url, img_url) VALUES ($1, $2, $3) RETURNING id`,
-      [
-        new Date(newsItem.datePublished),
-        newsItem.url,
-        newsItem.image?.thumbnail?.contentUrl || null,
-      ]
+      [new Date(), newsItem.link, newsItem.thumbnail || null]
     );
 
     const newsId = newsResult.rows[0].id;
@@ -213,7 +224,10 @@ async function storeNewsInDatabase(newsItem, processedContent) {
       const translation = {
         locale,
         title: processedContent.translations[locale].title,
-        description: processedContent.translations[locale].description,
+        description: processedContent.translations[locale].description.replace(
+          /\[\d+\]/g,
+          ""
+        ),
       };
 
       translation.slugTitle = await generateUniqueSlug(
@@ -245,61 +259,64 @@ async function storeNewsInDatabase(newsItem, processedContent) {
   }
 }
 
-// Endpoint to process and store news
+// Main endpoint
 app.get("/api/fetch-news", async (req, res) => {
   try {
-    const fetchedNews = await fetch(
-      `https://api.bing.microsoft.com/v7.0/news?mkt=en-us&category=Politics`,
+    const results = [];
+    const newsToProcessCount = 1;
+    let newsToProcess = [];
+
+    await getJson(
       {
-        cache: "force-cache",
-        headers: {
-          "Content-Type": "application/json",
-          "Ocp-Apim-Subscription-Key": process.env.BING_NEWS_API_KEY,
-        },
+        engine: "google_news",
+        gl: "us",
+        hl: "en",
+        topic_token: "CAAqJQgKIh9DQkFTRVFvSUwyMHZNRFZ4ZERBU0JXVnVMVWRDS0FBUAE",
+        api_key: process.env.SERP_API_KEY,
+      },
+      (json) => {
+        // Filter and slice valid news items
+        newsToProcess = (json["news_results"] || [])
+          .filter((news) => news.source && news.title)
+          .slice(0, newsToProcessCount);
+
+        console.log("Filtered news:", newsToProcess);
       }
     );
 
-    const data = await fetchedNews.json();
-    console.log(data);
-
-    const results = [];
-    const newsToProcess = data.value.slice(0, 2);
+    if (newsToProcess.length === 0) {
+      console.log("No valid news to process.");
+      return res.status(404).json({ message: "No valid news to process." });
+    }
 
     for (const newsItem of newsToProcess) {
       try {
-        const processedContent = await processNewsContent(
-          newsItem.name,
-          newsItem.description
-        );
+        const processedContent = await processNewsContent(newsItem.title);
         const { newsId, translations } = await storeNewsInDatabase(
           newsItem,
           processedContent
         );
+
         results.push({
           newsId,
           status: "success",
-          title: newsItem.name,
+          title: newsItem.title,
           translations,
         });
       } catch (error) {
+        console.error(`Error processing news item: ${newsItem.title}`, error);
         results.push({
           status: "error",
-          title: newsItem.name,
+          title: newsItem.title,
           error: error.message,
         });
       }
     }
+
     res.json({ total: newsToProcess.length, processed: results });
   } catch (error) {
-    console.error(`Error processing news item: ${newsItem.name}`, error);
-    results.push({
-      status: "error",
-      title: newsItem.name,
-      error: error.message,
-    });
-  } finally {
-    await pool.end();
-    console.log("News Added Successfully");
+    console.error("Error fetching news:", error);
+    res.status(500).json({ error: "Failed to fetch and process news" });
   }
 });
 
