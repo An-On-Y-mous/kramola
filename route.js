@@ -266,23 +266,18 @@ app.get("/api/fetch-news", async (req, res) => {
     const newsToProcessCount = 1;
     let newsToProcess = [];
 
-    await getJson(
+    const serpResponse = await fetch(
+      `https://serpapi.com/search.json?engine=google_news&gl=us&hl=en&topic_token=CAAqJQgKIh9DQkFTRVFvSUwyMHZNRFZ4ZERBU0JXVnVMVWRDS0FBUAE&api_key=${process.env.SERP_API_KEY}`,
       {
-        engine: "google_news",
-        gl: "us",
-        hl: "en",
-        topic_token: "CAAqJQgKIh9DQkFTRVFvSUwyMHZNRFZ4ZERBU0JXVnVMVWRDS0FBUAE",
-        api_key: process.env.SERP_API_KEY,
-      },
-      (json) => {
-        // Filter and slice valid news items
-        newsToProcess = (json["news_results"] || [])
-          .filter((news) => news.source && news.title)
-          .slice(0, newsToProcessCount);
-
-        console.log("Filtered news:", newsToProcess);
+        cache: "force-cache",
       }
     );
+    const response = await serpResponse.json();
+    newsToProcess = (response["news_results"] || [])
+      .filter((news) => news.source && news.title)
+      .slice(0, newsToProcessCount);
+
+    console.log("Filtered news:", newsToProcess);
 
     if (newsToProcess.length === 0) {
       console.log("No valid news to process.");
