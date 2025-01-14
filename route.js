@@ -295,7 +295,7 @@ const checkIfUrlExists = async (sourceUrl) => {
 app.get("/api/fetch-news", async (req, res) => {
   try {
     const results = [];
-    const newsToProcessCount = 6;
+    const newsToProcessCount = 1;
     let processedCount = 0;
 
     const serpResponse = await fetch(
