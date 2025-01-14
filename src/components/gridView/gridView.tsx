@@ -26,6 +26,7 @@ const GridView = ({ locale }: GridViewProps) => {
           headers: {
             "Content-Type": "application/json",
           },
+          cache: "no-cache",
         }
       );
 

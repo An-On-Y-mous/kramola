@@ -9,7 +9,9 @@ export const GET = async (request: Request) => {
   const { searchParams } = new URL(request.url);
   const locale = searchParams.get("locale") || "en";
 
-  const { rows: news } = await pool.query("SELECT * FROM news");
+  const { rows: news } = await pool.query(
+    "SELECT * FROM news ORDER BY date DESC"
+  );
 
   const { rows: translations } = await pool.query(
     "SELECT * FROM news_translations WHERE locale = $1",
