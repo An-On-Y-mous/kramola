@@ -75,7 +75,7 @@ const ArticlePage = async ({ params }: { params: Promise<Params> }) => {
             })}
           </p>
           <Link
-            className="articel-read-more"
+            className="articel-read-more hidden"
             href={newsItem.source_url}
             target="_blank"
             rel="noopener noreferrer"

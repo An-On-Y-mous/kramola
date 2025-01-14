@@ -21,10 +21,7 @@ interface Params {
 
 async function fetchNews(locale: string): Promise<NewsItemType[]> {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/fetchNews?locale=${locale}`,
-    {
-      cache: "no-cache",
-    }
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/fetchNews?locale=${locale}`
   );
   if (!response.ok) {
     return [];

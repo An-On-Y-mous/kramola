@@ -58,7 +58,7 @@ const GridView = ({ locale }: GridViewProps) => {
     <div className="grid-view">
       <RenderNews
         newsLocale={news}
-        startIndex={7}
+        startIndex={6}
         limit={visibleItems}
         locale={locale}
       />
