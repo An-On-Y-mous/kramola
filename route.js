@@ -170,7 +170,7 @@ async function processNewsContent(title) {
      - Includes relevant background information and latest developments
      - Presents multiple perspectives if applicable
      - Uses professional journalistic tone
-     - Adds proper paragraph breaks using <br /> <br />
+     - Adds proper paragraph breaks using <br /> <br /> for all descriptions
      - Focuses on factual information from reliable sources
      - Includes recent context and developments
      - Remove [1] [2] [3] so on.. references from the text
