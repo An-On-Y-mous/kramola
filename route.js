@@ -2,7 +2,8 @@ import "dotenv/config";
 import express from "express";
 import pg from "pg";
 import OpenAI from "openai";
-import { getJson } from "serpapi";
+import { z } from "zod";
+import { zodResponseFormat } from "openai/helpers/zod.mjs";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -175,7 +176,7 @@ async function processNewsContent(title) {
      - Remove [1] [2] [3] so on.. references from the text
 
   3. Translate both the title and generated description into Spanish and Russian.
-
+  
   Respond with ONLY a JSON object in this format:
   {
     "translations": {
@@ -185,24 +186,46 @@ async function processNewsContent(title) {
     }
   }`;
 
-  const completion = await openai.chat.completions.create({
-    model: "llama-3.1-sonar-small-128k-online",
-    messages: [
-      {
-        role: "system",
-        content:
-          "You are a professional multilingual news processor with web search capabilities. Generate comprehensive descriptions based on current web sources and provide accurate translations.",
-      },
-      { role: "user", content: prompt },
-    ],
-  });
+  const completion = {
+    method: "POST",
+    cache: "force-cache",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.PERPLEXITY_API_KEY}`,
+    },
 
-  const response = completion.choices[0].message.content;
-  const processedContent = extractJSON(response);
+    body: JSON.stringify({
+      model: "llama-3.1-sonar-small-128k-online",
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are a professional multilingual news processor with web search capabilities. Generate comprehensive descriptions based on current web sources and provide accurate translations.",
+        },
+        { role: "user", content: prompt },
+      ],
+    }),
+  };
+  try {
+    const response = await fetch(
+      "https://api.perplexity.ai/chat/completions",
+      completion
+    );
 
-  processedContent.translations.en.title = title;
+    const data = await response.json();
 
-  return processedContent;
+    const processedContent = extractJSON(data.choices[0].message.content);
+    console.log(
+      "================================================================================"
+    );
+    // console.log(processedContent);
+    processedContent.translations.en.title = title;
+
+    return processedContent;
+  } catch (error) {
+    console.error("Error processing news content:", error);
+    throw new Error("Failed to process news content");
+  }
 }
 
 // Database storage function remains unchanged
@@ -259,12 +282,21 @@ async function storeNewsInDatabase(newsItem, processedContent) {
   }
 }
 
+// Database query to check if URL exists
+const checkIfUrlExists = async (sourceUrl) => {
+  const { rows } = await pool.query(
+    "SELECT id FROM news WHERE source_url = $1",
+    [sourceUrl]
+  );
+  return rows.length > 0;
+};
+
 // Main endpoint
 app.get("/api/fetch-news", async (req, res) => {
   try {
     const results = [];
-    const newsToProcessCount = 1;
-    let newsToProcess = [];
+    const newsToProcessCount = 6;
+    let processedCount = 0;
 
     const serpResponse = await fetch(
       `https://serpapi.com/search.json?engine=google_news&gl=us&hl=en&topic_token=CAAqJQgKIh9DQkFTRVFvSUwyMHZNRFZ4ZERBU0JXVnVMVWRDS0FBUAE&api_key=${process.env.SERP_API_KEY}`,
@@ -273,19 +305,34 @@ app.get("/api/fetch-news", async (req, res) => {
       }
     );
     const response = await serpResponse.json();
-    newsToProcess = (response["news_results"] || [])
-      .filter((news) => news.source && news.title)
-      .slice(0, newsToProcessCount);
+    const allNewsItems = (response["news_results"] || []).filter(
+      (news) => news.source && news.title
+    );
+    console.log(`Fetched ${allNewsItems.length} news items`);
+    // console.log(allNewsItems);
 
-    console.log("Filtered news:", newsToProcess);
+    // Process news items until we get enough unique ones
+    for (
+      let i = 0;
+      i < allNewsItems.length && processedCount < newsToProcessCount;
+      i++
+    ) {
+      const newsItem = allNewsItems[i];
 
-    if (newsToProcess.length === 0) {
-      console.log("No valid news to process.");
-      return res.status(404).json({ message: "No valid news to process." });
-    }
-
-    for (const newsItem of newsToProcess) {
       try {
+        // Check if the URL already exists in the database
+        const isDuplicate = await checkIfUrlExists(newsItem.link);
+
+        if (isDuplicate) {
+          results.push({
+            status: "skipped",
+            title: newsItem.title,
+            reason: "Duplicate URL",
+          });
+          continue;
+        }
+        // return console.log(newsItem);
+
         const processedContent = await processNewsContent(newsItem.title);
         const { newsId, translations } = await storeNewsInDatabase(
           newsItem,
@@ -298,6 +345,8 @@ app.get("/api/fetch-news", async (req, res) => {
           title: newsItem.title,
           translations,
         });
+
+        processedCount++;
       } catch (error) {
         console.error(`Error processing news item: ${newsItem.title}`, error);
         results.push({
@@ -308,7 +357,16 @@ app.get("/api/fetch-news", async (req, res) => {
       }
     }
 
-    res.json({ total: newsToProcess.length, processed: results });
+    if (processedCount === 0) {
+      console.log("No valid news to process.");
+      return res.status(404).json({ message: "No valid news to process." });
+    }
+
+    res.json({
+      total: allNewsItems.length,
+      processed: processedCount,
+      results: results,
+    });
   } catch (error) {
     console.error("Error fetching news:", error);
     res.status(500).json({ error: "Failed to fetch and process news" });
