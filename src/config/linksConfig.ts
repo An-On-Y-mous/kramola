@@ -4,7 +4,7 @@ Example Format:
 ----Internal Linking----
 {
   word: "word",
-  link: "/internal-link-1",
+  link: "/article-link",
   translations: { ru: "слово", es: "palabra" },
 }
 
@@ -19,7 +19,7 @@ Example Format:
 export const internalLinks = [
   {
     word: "Biden",
-    link: "/internal-link-1",
+    link: "/article/how-to-not-lose-it-completely-during-trumps-second-presidency",
     translations: { ru: "Байден", es: "Biden" },
   },
 ];
