@@ -2,7 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import "@/styles/article.scss";
 import dynamic from "next/dynamic";
+import LinkProcessor from "@/components/linkProcessor/linkProcessor";
 const RenderNews = dynamic(() => import("@/components/renderNews/renderNews"));
+import { internalLinks, externalLinks } from "@/config/linksConfig";
 
 interface Params {
   slugtitle: string;
@@ -50,7 +52,6 @@ const ArticlePage = async ({ params }: { params: Promise<Params> }) => {
   };
 
   const relatedNews = await fetchNews();
-  // console.log(relatedNews);
 
   return (
     <div className="article-main">
@@ -64,9 +65,10 @@ const ArticlePage = async ({ params }: { params: Promise<Params> }) => {
           />
         </div>
         <h1 className="article-title">{newsItem.title}</h1>
-        <p
-          className="article-description"
-          dangerouslySetInnerHTML={{ __html: newsItem.description }}
+        <LinkProcessor
+          description={newsItem.description}
+          internalLinks={internalLinks}
+          externalLinks={externalLinks}
         />
         <div className="article-subcontainer">
           <p className="article-date">

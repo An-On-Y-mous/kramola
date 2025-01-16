@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import "@/styles/article.scss";
 import dynamic from "next/dynamic";
+import { internalLinks, externalLinks } from "@/config/linksConfig";
+import LinkProcessor from "@/components/linkProcessor/linkProcessor";
 
 const RenderNews = dynamic(() => import("@/components/renderNews/renderNews"));
 
@@ -62,9 +64,10 @@ const ArticlePage = async ({ params }: { params: Promise<Params> }) => {
           />
         </div>
         <h1 className="article-title">{newsItem.title}</h1>
-        <p
-          className="article-description"
-          dangerouslySetInnerHTML={{ __html: newsItem.description }}
+        <LinkProcessor
+          description={newsItem.description}
+          internalLinks={internalLinks}
+          externalLinks={externalLinks}
         />
         <div className="article-subcontainer">
           <p className="article-date">
