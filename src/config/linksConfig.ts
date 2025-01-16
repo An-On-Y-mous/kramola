@@ -43,9 +43,4 @@ export const externalLinks = [
     link: "https://en.wikipedia.org/wiki/Elon_Musk",
     translations: { ru: "Илон Маск", es: "Elon Musk" },
   },
-  {
-    word: "Biden",
-    link: "https://en.wikipedia.org/wiki/Joe_Biden",
-    translations: { ru: "Байдена", es: "Biden" },
-  },
 ];
