@@ -91,7 +91,7 @@ const ArticlePage = async ({ params }: { params: Promise<Params> }) => {
         <hr className="my-12 h-[1.5px] border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-75 dark:via-neutral-400" />
       </div>
       <div className="releated-news">
-        <h2 className="text-center uppercase text-[34px] font-proximaBlack my-[3vh]">
+        <h2 className="text-center uppercase text-[34px] font-proximaBlack my-[3vh] mb-[6vh]">
           More{" "}
           <span className="text-[#fc3e02] font-proximaBlack">
             <Link href={"/"}>Politics</Link>

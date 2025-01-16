@@ -26,12 +26,15 @@
   font-family: $poppins;
   font-size: $--18px;
   text-align: justify;
+  line-height: 3vh;
+  color: rgb(0, 0, 0, 0.7);
 }
 .article-subcontainer {
   @include flex-center();
   width: 100%;
   justify-content: space-between;
   margin-top: 1vh;
+  color: #fc3e02;
 }
 .article-data {
   font-family: $poppins;
