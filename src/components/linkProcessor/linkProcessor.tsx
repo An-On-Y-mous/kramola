@@ -1,4 +1,5 @@
 // src/components/LinkProcessor/LinkProcessor.tsx
+import "@/styles/article.scss";
 interface Link {
   word: string;
   link: string;
@@ -51,6 +52,7 @@ const LinkProcessor = ({
 
   return (
     <div
+      className="article-description"
       dangerouslySetInnerHTML={{
         __html: processedDescription,
       }}
