@@ -1,21 +1,31 @@
-// src/components/LinkProcessor/LinkProcessor.tsx
 import "@/styles/article.scss";
+import { validateLocale } from "@/utils/validateLocale";
+
+type Locale = "ru" | "es" | "en";
+
 interface Link {
   word: string;
   link: string;
+  translations?: {
+    [key in Locale]?: string;
+  };
 }
 
 interface LinkProcessorProps {
   description: string;
   internalLinks: Link[];
   externalLinks: Link[];
+  locale: string;
 }
 
 const LinkProcessor = ({
   description,
   internalLinks,
   externalLinks,
+  locale,
 }: LinkProcessorProps) => {
+  const validatedLocale = validateLocale(locale);
+
   const processDescription = (
     text: string,
     links: Link[],
@@ -24,21 +34,35 @@ const LinkProcessor = ({
     let processedText = text;
 
     links.forEach((link) => {
-      const regex = new RegExp(`\\b${link.word}\\b`, "gi");
-      processedText = processedText.replace(
-        regex,
-        `<a href="${link.link}" target="${
-          isInternal ? "_self" : "_blank"
-        }" rel="${
-          isInternal ? "" : "noopener noreferrer"
-        }" style="color: #fc3e02; text-decoration: underline;">${link.word}</a>`
-      );
+      const wordToReplace = link.translations?.[validatedLocale] || link.word;
+
+      if (validatedLocale === "ru") {
+        const russianText = text.replace(
+          new RegExp(wordToReplace, "giu"),
+          (match) => {
+            return `<a href="${link.link}" target="${
+              isInternal ? "_self" : "_blank"
+            }" rel="${
+              isInternal ? "" : "noopener noreferrer"
+            }" style="color: #fc3e02; text-decoration: underline;">${match}</a>`;
+          }
+        );
+        processedText = russianText;
+      } else {
+        processedText = processedText.replace(
+          new RegExp(`\\b${wordToReplace}\\b`, "gi"),
+          `<a href="${link.link}" target="${
+            isInternal ? "_self" : "_blank"
+          }" rel="${
+            isInternal ? "" : "noopener noreferrer"
+          }" style="color: #fc3e02; text-decoration: underline;">${wordToReplace}</a>`
+        );
+      }
     });
 
     return processedText;
   };
 
-  // First process internal links, then external links
   let processedDescription = processDescription(
     description,
     internalLinks,

@@ -1,10 +1,33 @@
+/*
+Example Format:
+
+----Internal Linking----
+{
+  word: "word",
+  link: "/internal-link-1",
+  translations: { ru: "слово", es: "palabra" },
+}
+
+----Authority Linking----
+{
+  word: "word",
+  link: "https://authority-site.com",
+  translations: { ru: "слово", es: "palabra" },
+}
+*/
+
 export const internalLinks = [
-  { word: "Biden", link: "/internal-link-1" },
-  { word: "additional", link: "/internal-link-2" },
-  { word: "Регламенты", link: "/internal-link-3" },
+  {
+    word: "Biden",
+    link: "/internal-link-1",
+    translations: { ru: "Байден", es: "Biden" },
+  },
 ];
 
 export const externalLinks = [
-  { word: "word", link: "https://authority-site-1.com" },
-  { word: "The", link: "https://authority-site-2.com" },
+  {
+    word: "rulemakings",
+    link: "https://example-site.com",
+    translations: { ru: "регламенты", es: "reglamentos" },
+  },
 ];

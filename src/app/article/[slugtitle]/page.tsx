@@ -3,8 +3,10 @@ import Link from "next/link";
 import "@/styles/article.scss";
 import dynamic from "next/dynamic";
 import LinkProcessor from "@/components/linkProcessor/linkProcessor";
-const RenderNews = dynamic(() => import("@/components/renderNews/renderNews"));
 import { internalLinks, externalLinks } from "@/config/linksConfig";
+import { validateLocale } from "@/utils/validateLocale";
+
+const RenderNews = dynamic(() => import("@/components/renderNews/renderNews"));
 
 interface Params {
   slugtitle: string;
@@ -53,6 +55,8 @@ const ArticlePage = async ({ params }: { params: Promise<Params> }) => {
 
   const relatedNews = await fetchNews();
 
+  const validatedLocale = validateLocale(locals);
+
   return (
     <div className="article-main">
       <div className="article-container">
@@ -69,6 +73,7 @@ const ArticlePage = async ({ params }: { params: Promise<Params> }) => {
           description={newsItem.description}
           internalLinks={internalLinks}
           externalLinks={externalLinks}
+          locale={validatedLocale}
         />
         <div className="article-subcontainer">
           <p className="article-date">
@@ -89,7 +94,6 @@ const ArticlePage = async ({ params }: { params: Promise<Params> }) => {
         </div>
       </div>
       <div className="divider">
-        {/* <hr className="my-12 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-75 dark:via-neutral-400" /> */}
         <hr className="my-12 h-[1.5px] border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-75 dark:via-neutral-400" />
       </div>
       <div className="releated-news">
