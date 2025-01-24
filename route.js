@@ -1,19 +1,16 @@
 import "dotenv/config";
 import express from "express";
 import pg from "pg";
-import OpenAI from "openai";
-import { z } from "zod";
-import { zodResponseFormat } from "openai/helpers/zod.mjs";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 app.use(express.json());
 
 // OpenAI setup
-const openai = new OpenAI({
-  apiKey: process.env.PERPLEXITY_API_KEY,
-  baseURL: "https://api.perplexity.ai",
-});
+// const openai = new OpenAI({
+//   apiKey: process.env.PERPLEXITY_API_KEY,
+//   baseURL: "https://api.perplexity.ai",
+// });
 
 // PostgreSQL connection setup
 const pool = new pg.Pool({
@@ -170,12 +167,12 @@ async function processNewsContent(title) {
      - Includes relevant background information and latest developments
      - Presents multiple perspectives if applicable
      - Uses professional journalistic tone
-     - Adds proper paragraph breaks using <br /> <br /> for all descriptions
+     - Adds compulsory two paragraph breaks like <br /> <br /> for all descriptions
      - Focuses on factual information from reliable sources
      - Includes recent context and developments
      - Remove [1] [2] [3] so on.. references from the text
 
-  3. Translate both the title and generated description into Spanish and Russian.
+  3. Translate both the title and generated description into Spanish and Russian and add compulsory two paragraph breaks like <br /> <br /> for all descriptions.
   
   Respond with ONLY a JSON object in this format:
   {
@@ -195,7 +192,7 @@ async function processNewsContent(title) {
     },
 
     body: JSON.stringify({
-      model: "llama-3.1-sonar-small-128k-online",
+      model: "llama-3.1-sonar-large-128k-online",
       messages: [
         {
           role: "system",
@@ -217,6 +214,10 @@ async function processNewsContent(title) {
     const processedContent = extractJSON(data.choices[0].message.content);
     console.log(
       "================================================================================"
+    );
+    console.log(
+      "================Full API Response:===================",
+      JSON.stringify(data, null, 2)
     );
     // console.log(processedContent);
     processedContent.translations.en.title = title;
@@ -295,21 +296,21 @@ const checkIfUrlExists = async (sourceUrl) => {
 app.get("/api/fetch-news", async (req, res) => {
   try {
     const results = [];
-    const newsToProcessCount = 9;
+    const newsToProcessCount = 1;
     let processedCount = 0;
 
     const serpResponse = await fetch(
       `https://serpapi.com/search.json?engine=google_news&gl=us&hl=en&topic_token=CAAqJQgKIh9DQkFTRVFvSUwyMHZNRFZ4ZERBU0JXVnVMVWRDS0FBUAE&api_key=${process.env.SERP_API_KEY}`,
       {
-        // cache: "force-cache",
+        // cache: "no-cache",
       }
     );
     const response = await serpResponse.json();
     const allNewsItems = (response["news_results"] || []).filter(
-      (news) => news.source && news.title
+      (news) => news.title && news.thumbnail
     );
     console.log(`Fetched ${allNewsItems.length} news items`);
-    // console.log(allNewsItems);
+    console.log(allNewsItems);
 
     // Process news items until we get enough unique ones
     for (

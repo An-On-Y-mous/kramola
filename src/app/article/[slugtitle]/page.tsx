@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import LinkProcessor from "@/components/linkProcessor/linkProcessor";
 import { internalLinks, externalLinks } from "@/config/linksConfig";
 import { validateLocale } from "@/utils/validateLocale";
+import { redirect } from "next/navigation";
 
 const RenderNews = dynamic(() => import("@/components/renderNews/renderNews"));
 
@@ -28,6 +29,9 @@ const ArticlePage = async ({ params }: { params: Promise<Params> }) => {
       body: JSON.stringify({ slugtitle, locale: "en" }),
     }
   );
+  if (!res.ok) {
+    return redirect("/");
+  }
 
   const { newsItem } = await res.json();
 
@@ -43,7 +47,7 @@ const ArticlePage = async ({ params }: { params: Promise<Params> }) => {
       );
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        return redirect("/");
       }
 
       const data = await response.json();
