@@ -295,13 +295,13 @@ const checkIfUrlExists = async (sourceUrl) => {
 app.get("/api/fetch-news", async (req, res) => {
   try {
     const results = [];
-    const newsToProcessCount = 1;
+    const newsToProcessCount = 9;
     let processedCount = 0;
 
     const serpResponse = await fetch(
       `https://serpapi.com/search.json?engine=google_news&gl=us&hl=en&topic_token=CAAqJQgKIh9DQkFTRVFvSUwyMHZNRFZ4ZERBU0JXVnVMVWRDS0FBUAE&api_key=${process.env.SERP_API_KEY}`,
       {
-        cache: "force-cache",
+        // cache: "force-cache",
       }
     );
     const response = await serpResponse.json();
